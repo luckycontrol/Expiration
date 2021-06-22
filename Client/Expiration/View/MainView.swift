@@ -8,12 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    
-    @Environment(\.managedObjectContext) private var context
-    
     @StateObject var appModel = AppModel()
-    
-    @FetchRequest(entity: Product.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Product.id, ascending: false)]) private var data: FetchedResults<Product>
     
     let columns = [
         GridItem(.flexible()),
@@ -92,20 +87,7 @@ struct MainView: View {
                 .padding(.horizontal)
                 
                 // MARK: 저장된 데이터 출력
-                if data.count > 0 {
-                    LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(data, id: \.self) { item in
-                            Card(edit: $edit, data: item, test: test[0])
-                        }
-                        .onDelete(perform: { indexSet in
-                            
-                        })
-                    }
-                    .padding(.top, 15)
-                    .padding(.bottom, 30)
-                } else {
-                    
-                }
+                
             }
             .background(Color.primary.opacity(0.01).edgesIgnoringSafeArea(.all))
             .blur(radius: menu ? 3 : 0)

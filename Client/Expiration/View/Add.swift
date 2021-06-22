@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct Add: View {
-    
-    @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var appModel: AppModel
@@ -72,7 +70,7 @@ struct Add: View {
                                     .scaledToFit()
                                 
                                 Text("\(appModel.selectedCateogry) 이미지를 넣어주세요.")
-                                    .font(.headline)
+                                    .fontWeight(.medium)
                                     .padding(.top, 8)
                             }
                         }
@@ -88,8 +86,8 @@ struct Add: View {
             VStack(spacing: 20) {
                 VStack(alignment: .leading) {
                     Text("이름")
-                        .font(.title3)
-                        .fontWeight(.heavy)
+                        .font(.body)
+                        .fontWeight(.medium)
                     
                     TextField("", text: $name)
                         .padding(.horizontal)
@@ -100,10 +98,10 @@ struct Add: View {
                         .shadow(color: .primary.opacity(0.1), radius: 2, x: -2, y: -2)
                 }
                 
-                HStack {
+                VStack(alignment: .leading) {
                     Text("유통기한")
-                        .font(.title3)
-                        .fontWeight(.heavy)
+                        .font(.body)
+                        .fontWeight(.medium)
                     DatePicker("", selection: $expiration, in: Date()..., displayedComponents: .date)
                 }
             }
@@ -113,17 +111,17 @@ struct Add: View {
             Spacer()
             
             Button(action: {
-                addAction(addItem)
+                
             }) {
                 Text("\(appModel.selectedCateogry) 추가")
                     .foregroundColor(.white)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .frame(height: 50)
                     .frame(maxWidth: .infinity)
                     .background(Color("MenuColor"))
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                    .shadow(color: Color("MenuColor"), radius: 1, x: 1, y: 1)
-                    .shadow(color: Color("MenuColor"), radius: 1, x: -1, y: -1)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    
+                    
                 
             }
         }
@@ -140,31 +138,11 @@ struct Add: View {
     }
     
     func addAction(_ addItem: () -> Int) {
-        let result = addItem()
-        if result == 1 {
-            presentationMode.wrappedValue.dismiss()
-        } else {
-            addAlert = true
-        }
+        
     }
     
-    func addItem() -> Int {
-        withAnimation {
-            let newItem = Product(context: context)
-            newItem.image = image?.jpegData(compressionQuality: 1.0)
-            newItem.name = name
-            newItem.category = appModel.selectedCateogry
-            newItem.expiration = expiration
-            
-            do {
-                try context.save()
-            } catch {
-                addResult = "입력하신 \(appModel.selectedCateogry)을/를 저장하지 못했어요."
-                return -1
-            }
-            
-            return 1
-        }
+    func addItem() {
+        
     }
 }
 

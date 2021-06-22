@@ -14,7 +14,6 @@
 		6676CC39264B7C6E00AA4B38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC38264B7C6E00AA4B38 /* ContentView.swift */; };
 		6676CC3B264B7C6E00AA4B38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6676CC3A264B7C6E00AA4B38 /* Assets.xcassets */; };
 		6676CC3E264B7C6E00AA4B38 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6676CC3D264B7C6E00AA4B38 /* Preview Assets.xcassets */; };
-		6676CC40264B7C6E00AA4B38 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC3F264B7C6E00AA4B38 /* Persistence.swift */; };
 		6676CC43264B7C6E00AA4B38 /* Expiration.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC41264B7C6E00AA4B38 /* Expiration.xcdatamodeld */; };
 		6676CC4E264B7C6E00AA4B38 /* ExpirationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC4D264B7C6E00AA4B38 /* ExpirationTests.swift */; };
 		6676CC59264B7C6E00AA4B38 /* ExpirationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC58264B7C6E00AA4B38 /* ExpirationUITests.swift */; };
@@ -50,7 +49,6 @@
 		6676CC38264B7C6E00AA4B38 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6676CC3A264B7C6E00AA4B38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6676CC3D264B7C6E00AA4B38 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6676CC3F264B7C6E00AA4B38 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		6676CC42264B7C6E00AA4B38 /* Expiration.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Expiration.xcdatamodel; sourceTree = "<group>"; };
 		6676CC44264B7C6E00AA4B38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6676CC49264B7C6E00AA4B38 /* ExpirationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpirationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,7 +171,6 @@
 			children = (
 				6676CC36264B7C6E00AA4B38 /* ExpirationApp.swift */,
 				6676CC38264B7C6E00AA4B38 /* ContentView.swift */,
-				6676CC3F264B7C6E00AA4B38 /* Persistence.swift */,
 			);
 			path = shared;
 			sourceTree = "<group>";
@@ -320,7 +317,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				66297817264CEF94007E4B17 /* Camera.swift in Sources */,
-				6676CC40264B7C6E00AA4B38 /* Persistence.swift in Sources */,
 				66C7A888264B7DC600ED7C68 /* AppModel.swift in Sources */,
 				6676CC39264B7C6E00AA4B38 /* ContentView.swift in Sources */,
 				66297814264CCC04007E4B17 /* Add.swift in Sources */,

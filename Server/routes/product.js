@@ -9,6 +9,7 @@ async function productApi(fastify, options) {
     fastify.put("/product/updateProduct", require("../controllers/product").updateProduct);
 
     // 삭제
+    fastify.delete("/product/removeProduct", require("../controllers/product").removeProduct);
 }
 
 module.exports = productApi;
