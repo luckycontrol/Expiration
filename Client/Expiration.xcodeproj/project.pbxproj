@@ -20,7 +20,10 @@
 		66C7A885264B7D6300ED7C68 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7A884264B7D6300ED7C68 /* MainView.swift */; };
 		66C7A888264B7DC600ED7C68 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7A887264B7DC600ED7C68 /* AppModel.swift */; };
 		66C7A88E264BCBD900ED7C68 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7A88D264BCBD900ED7C68 /* Card.swift */; };
-		66C7A890264BCCC100ED7C68 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7A88F264BCCC100ED7C68 /* Category.swift */; };
+		66C7A890264BCCC100ED7C68 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7A88F264BCCC100ED7C68 /* Product.swift */; };
+		66D284F1268987C900EDD2E6 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D284F0268987C900EDD2E6 /* Member.swift */; };
+		66D284F3268987FD00EDD2E6 /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D284F2268987FD00EDD2E6 /* ProductController.swift */; };
+		66D284F52689880700EDD2E6 /* MemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D284F42689880700EDD2E6 /* MemberController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +63,10 @@
 		66C7A884264B7D6300ED7C68 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		66C7A887264B7DC600ED7C68 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		66C7A88D264BCBD900ED7C68 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		66C7A88F264BCCC100ED7C68 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		66C7A88F264BCCC100ED7C68 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		66D284F0268987C900EDD2E6 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
+		66D284F2268987FD00EDD2E6 /* ProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
+		66D284F42689880700EDD2E6 /* MemberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,47 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		66577C4926895C70009412E2 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		66577C4A26895C7B009412E2 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				6675620F264BDEEC00EF0CE8 /* Menu.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		66577C4B26895C8F009412E2 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				66C7A88D264BCBD900ED7C68 /* Card.swift */,
+				66C7A884264B7D6300ED7C68 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		66577C4C26895CB0009412E2 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				66297813264CCC04007E4B17 /* Add.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		66577C4D26895DFE009412E2 /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+				66D284F2268987FD00EDD2E6 /* ProductController.swift */,
+				66D284F42689880700EDD2E6 /* MemberController.swift */,
+			);
+			path = ModelController;
+			sourceTree = "<group>";
+		};
 		6676CC2A264B7C6E00AA4B38 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +166,7 @@
 		6676CC35264B7C6E00AA4B38 /* Expiration */ = {
 			isa = PBXGroup;
 			children = (
+				66577C4D26895DFE009412E2 /* ModelController */,
 				66C7A886264B7DA600ED7C68 /* Model */,
 				66C7A889264B7DCD00ED7C68 /* shared */,
 				66C7A88A264B7DF200ED7C68 /* View */,
@@ -161,7 +209,8 @@
 			isa = PBXGroup;
 			children = (
 				66C7A887264B7DC600ED7C68 /* AppModel.swift */,
-				66C7A88F264BCCC100ED7C68 /* Category.swift */,
+				66C7A88F264BCCC100ED7C68 /* Product.swift */,
+				66D284F0268987C900EDD2E6 /* Member.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,10 +227,10 @@
 		66C7A88A264B7DF200ED7C68 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				66C7A884264B7D6300ED7C68 /* MainView.swift */,
-				66C7A88D264BCBD900ED7C68 /* Card.swift */,
-				6675620F264BDEEC00EF0CE8 /* Menu.swift */,
-				66297813264CCC04007E4B17 /* Add.swift */,
+				66577C4C26895CB0009412E2 /* Add */,
+				66577C4B26895C8F009412E2 /* Main */,
+				66577C4A26895C7B009412E2 /* Menu */,
+				66577C4926895C70009412E2 /* Login */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,10 +371,13 @@
 				66297814264CCC04007E4B17 /* Add.swift in Sources */,
 				6676CC43264B7C6E00AA4B38 /* Expiration.xcdatamodeld in Sources */,
 				66C7A885264B7D6300ED7C68 /* MainView.swift in Sources */,
+				66D284F52689880700EDD2E6 /* MemberController.swift in Sources */,
+				66D284F1268987C900EDD2E6 /* Member.swift in Sources */,
+				66D284F3268987FD00EDD2E6 /* ProductController.swift in Sources */,
 				6676CC37264B7C6E00AA4B38 /* ExpirationApp.swift in Sources */,
 				66756210264BDEEC00EF0CE8 /* Menu.swift in Sources */,
 				66C7A88E264BCBD900ED7C68 /* Card.swift in Sources */,
-				66C7A890264BCCC100ED7C68 /* Category.swift in Sources */,
+				66C7A890264BCCC100ED7C68 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

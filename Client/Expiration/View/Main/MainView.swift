@@ -108,6 +108,7 @@ struct MainView: View {
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
+        
     }
     
     // MARK: 데이터 삭제 함수
@@ -115,16 +116,6 @@ struct MainView: View {
         
     }
 }
-
-
-let test = [
-    Category(name: "사과", category: "음식", expiration: Date()),
-    Category(name: "사과", category: "음식", expiration: Date()),
-    Category(name: "사과", category: "음식", expiration: Date()),
-    Category(name: "사과", category: "음식", expiration: Date()),
-    Category(name: "사과", category: "음식", expiration: Date()),
-    Category(name: "사과", category: "음식", expiration: Date())
-]
 
 struct MainView_Previews: PreviewProvider {
     

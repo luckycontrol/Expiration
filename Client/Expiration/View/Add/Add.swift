@@ -111,7 +111,7 @@ struct Add: View {
             Spacer()
             
             Button(action: {
-                
+                addItem()
             }) {
                 Text("\(appModel.selectedCateogry) 추가")
                     .foregroundColor(.white)
@@ -142,7 +142,21 @@ struct Add: View {
     }
     
     func addItem() {
+        let imageData = image!.jpegData(compressionQuality: 1)
+        let imageBase64String = imageData?.base64EncodedString()
         
+        let newProduct = Product(
+            id: UUID(),
+            productCategory: appModel.selectedCateogry,
+            productName: name,
+            productImage: imageBase64String!,
+            expiration: expiration
+        )
+        
+        ProductApi().createProduct("luckycontrol", newProduct) { result in
+            print(result)
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 
