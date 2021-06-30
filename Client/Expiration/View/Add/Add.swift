@@ -111,7 +111,9 @@ struct Add: View {
             Spacer()
             
             Button(action: {
-                addItem()
+                add()
+                
+                presentationMode.wrappedValue.dismiss()
             }) {
                 Text("\(appModel.selectedCateogry) 추가")
                     .foregroundColor(.white)
@@ -120,9 +122,6 @@ struct Add: View {
                     .frame(maxWidth: .infinity)
                     .background(Color("MenuColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                    
-                
             }
         }
         .navigationBarTitle("\(appModel.selectedCateogry) 추가")
@@ -137,26 +136,45 @@ struct Add: View {
         
     }
     
-    func addAction(_ addItem: () -> Int) {
+    // 추가
+    func add() {
+        let encodedImage = imageEncoding(image!)
+        let expiration = changeExpiration(expiration)
+        let newProduct = createProductObject(encodedImage, expiration)
         
+        ProductApi().createProduct(newProduct) { result in
+            addResult = result
+        }
     }
     
-    func addItem() {
-        let imageData = image!.jpegData(compressionQuality: 1)
-        let imageBase64String = imageData?.base64EncodedString()
-        
-        let newProduct = Product(
-            id: UUID(),
+    // 이미지 인코딩
+    func imageEncoding(_ image: UIImage) -> String {
+        let imgData = image.jpegData(compressionQuality: 1.0)
+        return (imgData?.base64EncodedString())!
+    }
+    
+    // 바디에 넣을 오브젝트 생성
+    func createProductObject(_ encodedImage: String, _ expiration: String) -> RequestCreateProduct {
+        let newProduct = RequestCreateProduct(
             productCategory: appModel.selectedCateogry,
             productName: name,
-            productImage: imageBase64String!,
-            expiration: expiration
+            productImage: encodedImage,
+            expiration: expiration,
+            username: "luckycontrol"
         )
         
-        ProductApi().createProduct("luckycontrol", newProduct) { result in
-            print(result)
-            presentationMode.wrappedValue.dismiss()
-        }
+        return newProduct
+    }
+    
+    // 날짜 Date -> String
+    func changeExpiration(_ expiration: Date) -> String {
+        let dateFormatter: DateFormatter = {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+            return dateFormatter
+        }()
+        
+        return dateFormatter.string(from: expiration)
     }
 }
 

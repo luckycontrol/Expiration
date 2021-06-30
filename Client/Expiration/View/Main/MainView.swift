@@ -10,9 +10,8 @@ import SwiftUI
 struct MainView: View {
     @StateObject var appModel = AppModel()
     
-    let columns = [
-        GridItem(.flexible()),
-    ]
+    @State private var products: [ResponseReadProduct] = []
+    @State private var isLoading = false
     
     @State private var menu = false
     @State private var edit = false
@@ -73,13 +72,15 @@ struct MainView: View {
                             }
                         }) {
                             Text("편집")
-                                .font(.headline)
+                                .font(.body)
+                                .fontWeight(.medium)
                                 .foregroundColor(.secondary)
                         }
                         
                         Button(action: { changeOrderWay = true }) {
                             Text("정렬 방식: \(appModel.selectedOrderWay)")
-                                .font(.headline)
+                                .font(.body)
+                                .fontWeight(.medium)
                                 .foregroundColor(.secondary)
                         }
                     }
@@ -87,7 +88,9 @@ struct MainView: View {
                 .padding(.horizontal)
                 
                 // MARK: 저장된 데이터 출력
-                
+                ForEach(products, id: \._id) { product in
+                    Card(product: product, edit: $edit)
+                }
             }
             .background(Color.primary.opacity(0.01).edgesIgnoringSafeArea(.all))
             .blur(radius: menu ? 3 : 0)
@@ -103,17 +106,19 @@ struct MainView: View {
                 )
             }
             
-            Menu(appModel: appModel, menu: $menu)
-                .offset(x: menu ? 0 : -UIScreen.main.bounds.width)
+            if menu {
+                Menu(appModel: appModel, menu: $menu)
+            }
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
-        
-    }
-    
-    // MARK: 데이터 삭제 함수
-    func deleteItem() {
-        
+        .onAppear {
+            isLoading = true
+            ProductApi().readProduct("luckycontrol") { products in
+                self.products = products
+                isLoading = false
+            }
+        }
     }
 }
 

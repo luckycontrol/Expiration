@@ -122,6 +122,7 @@ struct Menu: View {
                 .onChanged(onChanged)
                 .onEnded(onEnded)
         )
+        .transition(.move(edge: .leading))
         .animation(.linear(duration: 0.15))
     }
     

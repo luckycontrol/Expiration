@@ -7,27 +7,36 @@
 
 import SwiftUI
 
-struct ProductResult: Codable {
-    var result: [Product]
-}
-
-struct Product: Identifiable, Hashable, Codable {
-    var id: UUID
+// Product 생성
+struct RequestCreateProduct: Codable {
     var productCategory: String
     var productName: String
     var productImage: String
-    var expiration: Date
-}
-
-struct CreateProduct: Codable {
-    var id: UUID
-    var productCategory: String
-    var productName: String
-    var productImage: String
-    var expiration: Date
+    var expiration: String
     var username: String
 }
 
-struct Result: Codable {
+struct ResponseCreateProduct: Codable {
     var result: String
 }
+
+// Product 읽기
+struct RequestReadProduct: Codable {
+    var username: String
+}
+
+struct ResponseReadProductResult: Codable {
+    var result: [ResponseReadProduct]
+}
+
+struct ResponseReadProduct: Codable {
+    var _id: String
+    var productCategory: String
+    var productName: String
+    var productImage: String
+    var expiration: String
+}
+
+// Product 업데이트
+
+// Product 삭제
