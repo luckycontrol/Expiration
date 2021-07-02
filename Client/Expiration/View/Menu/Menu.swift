@@ -11,7 +11,7 @@ struct Menu: View {
     
     let categorys = ["음식", "생활용품"]
     
-    @ObservedObject var appModel: AppModel
+    @EnvironmentObject var appModel: AppModel
     
     @Binding var menu: Bool
     
@@ -142,9 +142,7 @@ struct Menu: View {
 
 struct Menu_Previews: PreviewProvider {
     
-    static let appModel = AppModel()
-    
     static var previews: some View {
-        Menu(appModel: appModel, menu: .constant(false))
+        Menu(menu: .constant(false)).environmentObject(AppModel())
     }
 }

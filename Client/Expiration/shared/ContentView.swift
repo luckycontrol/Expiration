@@ -10,14 +10,18 @@ import CoreData
 
 struct ContentView: View {
     
+    @StateObject var appModel = AppModel()
+    
     init() {
         UINavigationBar.appearance().tintColor = .black
     }
 
     var body: some View {
         NavigationView {
-            MainView()
+            if appModel.isLogin { MainView() }
+            else { Login() }
         }
+        .environmentObject(appModel)
     }
 }
 

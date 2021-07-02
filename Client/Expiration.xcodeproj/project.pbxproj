@@ -17,6 +17,9 @@
 		6676CC43264B7C6E00AA4B38 /* Expiration.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC41264B7C6E00AA4B38 /* Expiration.xcdatamodeld */; };
 		6676CC4E264B7C6E00AA4B38 /* ExpirationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC4D264B7C6E00AA4B38 /* ExpirationTests.swift */; };
 		6676CC59264B7C6E00AA4B38 /* ExpirationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC58264B7C6E00AA4B38 /* ExpirationUITests.swift */; };
+		66B7FD01268D1CE60057B39C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B7FD00268D1CE60057B39C /* Login.swift */; };
+		66B7FD03268D1CF70057B39C /* CreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B7FD02268D1CF70057B39C /* CreateAccount.swift */; };
+		66B7FD05268D1D030057B39C /* FindAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B7FD04268D1D030057B39C /* FindAccount.swift */; };
 		66C7A885264B7D6300ED7C68 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7A884264B7D6300ED7C68 /* MainView.swift */; };
 		66C7A888264B7DC600ED7C68 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7A887264B7DC600ED7C68 /* AppModel.swift */; };
 		66C7A88E264BCBD900ED7C68 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7A88D264BCBD900ED7C68 /* Card.swift */; };
@@ -60,6 +63,9 @@
 		6676CC54264B7C6E00AA4B38 /* ExpirationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpirationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6676CC58264B7C6E00AA4B38 /* ExpirationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationUITests.swift; sourceTree = "<group>"; };
 		6676CC5A264B7C6E00AA4B38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		66B7FD00268D1CE60057B39C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		66B7FD02268D1CF70057B39C /* CreateAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccount.swift; sourceTree = "<group>"; };
+		66B7FD04268D1D030057B39C /* FindAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAccount.swift; sourceTree = "<group>"; };
 		66C7A884264B7D6300ED7C68 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		66C7A887264B7DC600ED7C68 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		66C7A88D264BCBD900ED7C68 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -105,6 +111,9 @@
 		66577C4926895C70009412E2 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				66B7FD00268D1CE60057B39C /* Login.swift */,
+				66B7FD02268D1CF70057B39C /* CreateAccount.swift */,
+				66B7FD04268D1D030057B39C /* FindAccount.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -372,7 +381,10 @@
 				6676CC43264B7C6E00AA4B38 /* Expiration.xcdatamodeld in Sources */,
 				66C7A885264B7D6300ED7C68 /* MainView.swift in Sources */,
 				66D284F52689880700EDD2E6 /* MemberController.swift in Sources */,
+				66B7FD03268D1CF70057B39C /* CreateAccount.swift in Sources */,
+				66B7FD01268D1CE60057B39C /* Login.swift in Sources */,
 				66D284F1268987C900EDD2E6 /* Member.swift in Sources */,
+				66B7FD05268D1D030057B39C /* FindAccount.swift in Sources */,
 				66D284F3268987FD00EDD2E6 /* ProductController.swift in Sources */,
 				6676CC37264B7C6E00AA4B38 /* ExpirationApp.swift in Sources */,
 				66756210264BDEEC00EF0CE8 /* Menu.swift in Sources */,

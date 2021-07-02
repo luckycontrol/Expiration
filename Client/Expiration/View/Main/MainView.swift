@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var appModel = AppModel()
+    @EnvironmentObject var appModel: AppModel
     
     @State private var products: [ResponseReadProduct] = []
     @State private var isLoading = false
@@ -107,7 +107,7 @@ struct MainView: View {
             }
             
             if menu {
-                Menu(appModel: appModel, menu: $menu)
+                Menu(menu: $menu)
             }
         }
         .navigationBarTitle("")
@@ -119,16 +119,16 @@ struct MainView: View {
                 isLoading = false
             }
         }
+        .environmentObject(appModel)
     }
 }
 
 struct MainView_Previews: PreviewProvider {
     
-    static let appModel = AppModel()
-    
     static var previews: some View {
         NavigationView {
-            MainView(appModel: appModel)
+            MainView()
+                .environmentObject(AppModel())
         }
         .preferredColorScheme(.light)
     }
