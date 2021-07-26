@@ -17,9 +17,13 @@ struct ContentView: View {
     }
 
     var body: some View {
+//        NavigationView {
+//            if appModel.isLogin { MainView() }
+//            else { Login() }
+//        }
+//        .environmentObject(appModel)
         NavigationView {
-            if appModel.isLogin { MainView() }
-            else { Login() }
+            MainView()
         }
         .environmentObject(appModel)
     }

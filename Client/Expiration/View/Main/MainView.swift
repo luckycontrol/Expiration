@@ -14,6 +14,7 @@ struct MainView: View {
     @State private var isLoading = false
     
     @State private var menu = false
+    @State private var add = false
     @State private var edit = false
     @State private var changeOrderWay = false
     @State private var offset: CGSize = .zero
@@ -26,100 +27,45 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            ScrollView(.vertical) {
-                
-                // MARK: 메뉴, 도움말, 플러스
-                HStack {
-                    Button(action: {
-                        menu = true
-                    }) {
-                        Image(systemName: "list.bullet")
-                            .font(.title2)
-                            .foregroundColor(.primary)
-                    }
-                    Spacer()
-                    
-                    HStack(spacing: 15) {
-                        Image(systemName: "questionmark")
-                            .font(.title2)
-                        
-                        NavigationLink(destination: Add(appModel: appModel)) {
-                            Image(systemName: "plus")
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                        }
-                    }
-                }
-                .padding([.horizontal, .bottom])
-                
-                // MARK: 선택 카테고리
-                HStack {
-                    Text(appModel.selectedCateogry)
-                        .font(.title)
-                        .fontWeight(.black)
-                    Spacer()
-                }
-                .padding(.horizontal)
-                
-                // MARK: 편집, 정렬방식
-                HStack {
-                    Spacer()
-                    
-                    VStack(alignment: .trailing, spacing: 8) {
-                        Button(action: {
-                            withAnimation(.linear(duration: 0.15)) {
-                                edit.toggle()
+            List {
+                ForEach(0 ..< 15) { _ in
+                    if #available(iOS 15.0, *) {
+                        Card()
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(action: {}) {
+                                    Label("삭제", systemImage: "trash")
+                                }
+                                .tint(.red)
+                                
+                                Button(action: {}) {
+                                    Label("수정", systemImage: "hammer")
+                                }
+                                .tint(.yellow)
                             }
-                        }) {
-                            Text("편집")
-                                .font(.body)
-                                .fontWeight(.medium)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        Button(action: { changeOrderWay = true }) {
-                            Text("정렬 방식: \(appModel.selectedOrderWay)")
-                                .font(.body)
-                                .fontWeight(.medium)
-                                .foregroundColor(.secondary)
-                        }
                     }
                 }
-                .padding(.horizontal)
-                
-                // MARK: 저장된 데이터 출력
-                ForEach(products, id: \._id) { product in
-                    Card(product: product, edit: $edit)
+            }
+            .listStyle(.insetGrouped)
+            .navigationBarTitle(appModel.selectedCateogry)
+            .navigationBarHidden(menu ? true : false)
+            .navigationBarItems(leading:
+                                    Button(action: { menu.toggle() }) { Image(systemName: "list.bullet") }
+                                    .buttonStyle(PlainButtonStyle())
+            )
+            .navigationBarItems(trailing:
+                                    HStack {
+                Button(action: { add.toggle() }) {
+                    Image(systemName: "plus")
                 }
-            }
-            .background(Color.primary.opacity(0.01).edgesIgnoringSafeArea(.all))
-            .blur(radius: menu ? 3 : 0)
-            .actionSheet(isPresented: $changeOrderWay) {
-                ActionSheet(
-                    title: Text("정렬 방식을 변경합니다."),
-                    message: Text("원하시는 방식을 선택해주세요."),
-                    buttons: [
-                        .default(Text("유통기한 순")) { },
-                        .default(Text("이름 순")) { },
-                        .cancel(Text("취소"))
-                    ]
-                )
-            }
+                .buttonStyle(PlainButtonStyle())
+            })
             
             if menu {
                 Menu(menu: $menu)
             }
+            
+            NavigationLink(destination: Add(), isActive: $add) { EmptyView() }
         }
-        .navigationBarTitle("")
-        .navigationBarHidden(true)
-        .onAppear {
-            isLoading = true
-            ProductApi().readProduct("luckycontrol") { products in
-                self.products = products
-                isLoading = false
-            }
-        }
-        .environmentObject(appModel)
     }
 }
 
@@ -128,8 +74,8 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MainView()
-                .environmentObject(AppModel())
         }
+        .environmentObject(AppModel())
         .preferredColorScheme(.light)
     }
 }

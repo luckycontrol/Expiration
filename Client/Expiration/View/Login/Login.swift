@@ -12,19 +12,8 @@ struct Login: View {
     @State private var email = ""
     @State private var password = ""
     
-    init() {
-        let appearance = UINavigationBarAppearance()
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().tintColor = .white
-    }
-    
     var body: some View {
         ZStack {
-            LinearGradient(colors: [Color("First"), Color("Second")], startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
-                
-            
             VStack {
                 VStack(alignment: .leading) {
                     Text("이메일")
@@ -36,7 +25,6 @@ struct Login: View {
                     
                     Divider().frame(height: 2).background(Color.white)
                 }
-                .foregroundColor(.white)
                 .padding(.top, 35)
                 
                 VStack(alignment: .leading) {
@@ -49,18 +37,15 @@ struct Login: View {
                     
                     Divider().frame(height: 2).background(Color.white)
                 }
-                .foregroundColor(.white)
                 .padding(.top, 25)
                 
                 VStack(spacing: 15) {
                     Text("계정이 없으신가요?")
                         .font(.headline)
-                        .foregroundColor(.white)
                     
                     NavigationLink(destination: CreateAccount()) {
                         Text("계정 만들기")
                             .font(.callout)
-                            .foregroundColor(.white)
                     }
                     
 //                    Button(action: {}) {
@@ -87,7 +72,7 @@ struct Login: View {
                         .foregroundColor(.black)
                         .background(Color.white)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .shadow(color: .black.opacity(0.4), radius: 3, x: 3, y: 3)
+                        .shadow(color: .black.opacity(0.4), radius: 3, x: 1, y: 3)
                 }
             }
             .padding()

@@ -28,7 +28,7 @@ class MemberApi {
     }
     
     // MARK: 멤버 중복 확인
-    func checkMemberDuplicate(_ username: String, completion: @escaping (String) -> ()) {
+    func checkMemberDuplicate(_ username: String, completion: @escaping (String) -> (Bool)) {
         let checkEmail = RequestCheckEmailDuplicate(username: username)
         let request = makeRequestObject(checkEmail, url + "/checkMember")
         

@@ -10,7 +10,7 @@ import SwiftUI
 struct Add: View {
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var appModel: AppModel
+    @EnvironmentObject var appModel: AppModel
     
     @State private var name = ""
     @State private var expiration = Date()
@@ -90,12 +90,7 @@ struct Add: View {
                         .fontWeight(.medium)
                     
                     TextField("", text: $name)
-                        .padding(.horizontal)
-                        .frame(height: 40)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .shadow(color: .primary.opacity(0.1), radius: 2, x: 2, y: 2)
-                        .shadow(color: .primary.opacity(0.1), radius: 2, x: -2, y: -2)
+                    Divider()
                 }
                 
                 VStack(alignment: .leading) {
@@ -111,8 +106,6 @@ struct Add: View {
             Spacer()
             
             Button(action: {
-                add()
-                
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Text("\(appModel.selectedCateogry) 추가")
@@ -149,7 +142,7 @@ struct Add: View {
     
     // 이미지 인코딩
     func imageEncoding(_ image: UIImage) -> String {
-        let imgData = image.jpegData(compressionQuality: 1.0)
+        let imgData = image.jpegData(compressionQuality: 0.5)
         return (imgData?.base64EncodedString())!
     }
     
@@ -180,11 +173,10 @@ struct Add: View {
 
 struct Add_Previews: PreviewProvider {
     
-    static let appModel = AppModel()
-    
     static var previews: some View {
         NavigationView {
-            Add(appModel: appModel)
+            Add()
+                .environmentObject(AppModel())
         }
     }
 }
