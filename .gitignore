@@ -3,3 +3,6 @@
 /Server/controllers
 /Server/models
 example.http
+
+/GraphQL-Server/node_modules
+/GraphQL-Server/yarn.lock

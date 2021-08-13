@@ -8,18 +8,19 @@
 import Foundation
 
 // MARK: 멤버 생성
-struct RequestCreateMember: Codable {
-    var username: String
+struct RequestCreateAccount: Codable {
+    var email: String
+    var name: String
     var password: String
 }
 
-struct ResponseCreateMember: Codable {
+struct ResponseCreateAccount: Codable {
     var result: String
 }
 
 // MARK: 멤버 검색 ( 이메일 중복 확인 )
 struct RequestCheckEmailDuplicate: Codable {
-    var username: String
+    var email: String
 }
 
 struct ResponseCheckEmailDuplicate: Codable {
@@ -44,4 +45,16 @@ struct RequestDeleteMember: Codable {
 
 struct ResponseDeleteMember: Codable {
     var result: String
+}
+
+// MARK: 로그인
+struct RequestLoginModel: Codable {
+    var email: String
+    var password: String
+}
+
+struct LoginModel: Codable {
+    var result: String
+    var email: String?
+    var name: String?
 }

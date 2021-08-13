@@ -9,8 +9,15 @@ import SwiftUI
 
 struct Login: View {
     
+    let generator = UINotificationFeedbackGenerator()
+    
+    @EnvironmentObject var appModel: AppModel
+    
     @State private var email = ""
     @State private var password = ""
+    
+    @State private var isAlert = false
+    @State private var alertMsg = ""
     
     var body: some View {
         ZStack {
@@ -47,44 +54,60 @@ struct Login: View {
                         Text("계정 만들기")
                             .font(.callout)
                     }
-                    
-//                    Button(action: {}) {
-//                        VStack(spacing: 8) {
-//                            Image(systemName: "applelogo")
-//                                .font(.title)
-//
-//                            Text("애플 계정으로 로그인")
-//                                .font(.headline)
-//                        }
-//                        .foregroundColor(.white)
-//                    }
-//                    .padding(.top, 25)
                 }
                 .padding(.top, 35)
                 
                 Spacer()
                 
-                Button(action: {}) {
+                Button(action: handleLogin) {
                     Text("로그인")
+                        .foregroundColor(.white)
+                        .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .shadow(color: .black.opacity(0.4), radius: 3, x: 1, y: 3)
+                        .background(Color.black)
+                        .cornerRadius(10)
+                        .shadow(color: .black, radius: 0.2, x: 2, y: 2)
                 }
             }
-            .padding()
+            .padding(20)
         }
         .navigationBarTitle("유통기한 관리사")
+        .alert(isPresented: $isAlert) {
+            Alert(
+                title: Text("로그인에 문제가 생겼어요!"),
+                message: Text("\(alertMsg)"),
+                dismissButton: .default(Text("알겠어요."))
+            )
+        }
+
+    }
+    
+    func handleLogin() {
+        AccountApi().login(email, password) { status, email, name, msg in
+            if (status) {
+                CategoryApi().getCategoryList(email) { categoryList in
+                    DispatchQueue.main.async {
+                        appModel.email = email
+                        appModel.name = name
+                        appModel.categoryList = categoryList
+                        appModel.isLogin = true
+                        generator.notificationOccurred(.success)
+                    }
+                }
+            } else {
+                isAlert = true
+                alertMsg = msg
+            }
+        }
     }
 }
 
 struct Login_Previews: PreviewProvider {
+    
     static var previews: some View {
         NavigationView {
             Login()
-        }
+        }.environmentObject(AppModel())
     }
 }

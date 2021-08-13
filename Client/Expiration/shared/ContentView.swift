@@ -17,13 +17,9 @@ struct ContentView: View {
     }
 
     var body: some View {
-//        NavigationView {
-//            if appModel.isLogin { MainView() }
-//            else { Login() }
-//        }
-//        .environmentObject(appModel)
         NavigationView {
-            MainView()
+            if appModel.isLogin { MainView() }
+            else { Login() }
         }
         .environmentObject(appModel)
     }
@@ -34,5 +30,12 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+extension UINavigationController {
+    // Remove back button text
+    open override func viewWillLayoutSubviews() {
+        navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 }

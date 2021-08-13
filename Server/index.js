@@ -1,4 +1,4 @@
-const fastify = require("fastify")({ logger: true, bodyLimit: 124857600 });
+const fastify = require("fastify")({ bodyLimit: 124857600 });
 const PORT = process.env.PORT || 3000;
 
 // API

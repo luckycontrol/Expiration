@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    
     @EnvironmentObject var appModel: AppModel
     
     @State private var products: [ResponseReadProduct] = []
@@ -45,20 +46,29 @@ struct MainView: View {
                     }
                 }
             }
-            .listStyle(.insetGrouped)
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle(appModel.selectedCateogry)
             .navigationBarHidden(menu ? true : false)
-            .navigationBarItems(leading:
-                                    Button(action: { menu.toggle() }) { Image(systemName: "list.bullet") }
-                                    .buttonStyle(PlainButtonStyle())
-            )
-            .navigationBarItems(trailing:
-                                    HStack {
-                Button(action: { add.toggle() }) {
-                    Image(systemName: "plus")
+            .navigationBarItems(
+                leading: Button(action: {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    menu.toggle()
+                }) {
+                    Image(systemName: "list.bullet")
                 }
-                .buttonStyle(PlainButtonStyle())
-            })
+                .buttonStyle(.plain)
+            )
+            .navigationBarItems(
+                trailing: HStack {
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                        add.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                    .buttonStyle(.plain)
+                }
+            )
             
             if menu {
                 Menu(menu: $menu)

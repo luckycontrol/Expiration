@@ -45,84 +45,92 @@ struct Add: View {
             dismissButton: Alert.Button.cancel(Text("확인"))
         )
         
-        VStack(alignment: .leading) {
-            if image != nil {
-                Image(uiImage: image!)
-                    .resizable()
-                    .frame(height: 300)
-                    .scaledToFit()
-                    .onTapGesture {
-                        insertImage = true
-                    }
-                    .actionSheet(isPresented: $insertImage) {
-                        insertActionSheet
-                    }
-            } else {
-                Rectangle()
-                    .frame(height: 300)
-                    .foregroundColor(.black.opacity(0.1))
-                    .overlay(
-                        ZStack(alignment: .center) {
-                            VStack {
-                                Image(systemName: "photo.fill")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .scaledToFit()
-                                
-                                Text("\(appModel.selectedCateogry) 이미지를 넣어주세요.")
-                                    .fontWeight(.medium)
-                                    .padding(.top, 8)
-                            }
-                        }
-                    )
-                    .onTapGesture {
-                        insertImage = true
-                    }
-                    .actionSheet(isPresented: $insertImage) {
-                        insertActionSheet
-                    }
-            }
+        ZStack {
+            Color.black.opacity(0.05).edgesIgnoringSafeArea(.all)
             
-            VStack(spacing: 20) {
-                VStack(alignment: .leading) {
-                    Text("이름")
-                        .font(.body)
-                        .fontWeight(.medium)
-                    
-                    TextField("", text: $name)
-                    Divider()
+            VStack(alignment: .leading) {
+                if image != nil {
+                    Image(uiImage: image!)
+                        .resizable()
+                        .frame(height: 300)
+                        .cornerRadius(15)
+                        .shadow(color: .black, radius: 0.22, x: 0.2, y: 0.2)
+                        .scaledToFit()
+                        .onTapGesture {
+                            insertImage = true
+                        }
+                        .actionSheet(isPresented: $insertImage) {
+                            insertActionSheet
+                        }
+                } else {
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundColor(.white)
+                        .frame(height: 300)
+                        .shadow(color: .black, radius: 0.2, x: 0.22, y: 0.22)
+                        .overlay(
+                            ZStack(alignment: .center) {
+                                VStack {
+                                    Image(systemName: "photo.fill")
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                        .scaledToFit()
+                                    
+                                    Text("\(appModel.selectedCateogry) 이미지를 넣어주세요.")
+                                        .fontWeight(.medium)
+                                        .padding(.top, 8)
+                                }
+                            }
+                        )
+                        .onTapGesture {
+                            insertImage = true
+                        }
+                        .actionSheet(isPresented: $insertImage) {
+                            insertActionSheet
+                        }
                 }
                 
-                VStack(alignment: .leading) {
-                    Text("유통기한")
-                        .font(.body)
-                        .fontWeight(.medium)
-                    DatePicker("", selection: $expiration, in: Date()..., displayedComponents: .date)
+                VStack(spacing: 20) {
+                    VStack(alignment: .leading) {
+                        Text("이름")
+                            .font(.body)
+                            .fontWeight(.medium)
+                        
+                        TextField("", text: $name)
+                        Divider()
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("유통기한")
+                            .font(.body)
+                            .fontWeight(.medium)
+                        
+                        DatePicker("", selection: $expiration, in: Date()..., displayedComponents: .date)
+                    }
+                }
+                .padding(.top, 30)
+                
+                
+                Spacer()
+                
+                Button(action: {
+                    print(image!)
+                }) {
+                    Text("\(appModel.selectedCateogry) 추가")
+                        .foregroundColor(.white)
+                        .fontWeight(.semibold)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Color("MenuColor"))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
             }
-            .padding(.top, 30)
-            
-            
-            Spacer()
-            
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("\(appModel.selectedCateogry) 추가")
-                    .foregroundColor(.white)
-                    .fontWeight(.semibold)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color("MenuColor"))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            .navigationBarTitle("\(appModel.selectedCateogry) 추가")
+            .padding(30)
+            .sheet(isPresented: $openImagePicker) {
+                Camera(sourceType: sourceType, selectedImage: $image)
             }
+            .alert(isPresented: $addAlert) { insertAlert }
         }
-        .navigationBarTitle("\(appModel.selectedCateogry) 추가")
-        .padding()
-        .fullScreenCover(isPresented: $openImagePicker) {
-            Camera(sourceType: sourceType, selectedImage: $image)
-        }
-        .alert(isPresented: $addAlert) { insertAlert }
     }
     
     func itemCheck() {

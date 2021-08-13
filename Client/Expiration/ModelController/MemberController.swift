@@ -7,39 +7,63 @@
 
 import Foundation
 
-class MemberApi {
+class AccountApi {
     
-    let url = "http://127.0.0.1:3000/member"
+    let url = "http://192.168.1.3:3000/"
     
     // MARK: 멤버 생성
-    func createMember(_ username: String, _ password: String, completion: @escaping (String) -> ()) {
-        let newMember = RequestCreateMember(username: username, password: password)
-        let request = makeRequestObject(newMember, url + "/createMember")
+    func createAccount(_ email: String, _ name: String, _ password: String, completion: @escaping (Bool) -> ()) {
+        let newMember = RequestCreateAccount(email: email, name: name, password: password)
+        let request = makeRequestObject(newMember, url + "createAccount")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let result = try? JSONDecoder().decode(ResponseCreateMember.self, from: data) {
-                    DispatchQueue.main.async { completion(result.result) }
+            guard let data = data else { print("데이터 없음"); return }
+            
+            if let decoded = try? JSONDecoder().decode(ResponseCreateAccount.self, from: data) {
+                if (decoded.result == "성공") {
+                    completion(true)
+                } else {
+                    completion(false)
                 }
             }
-            
-            print("계정 생성 에러")
         }.resume()
     }
     
-    // MARK: 멤버 중복 확인
-    func checkMemberDuplicate(_ username: String, completion: @escaping (String) -> (Bool)) {
-        let checkEmail = RequestCheckEmailDuplicate(username: username)
-        let request = makeRequestObject(checkEmail, url + "/checkMember")
+    // MARK: 로그인
+    func login(_ email: String, _ password: String, completion: @escaping (Bool, String, String, String) -> ()) {
+        let user = RequestLoginModel(email: email, password: password)
+        let request = makeRequestObject(user, url + "login")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let checkResult = try? JSONDecoder().decode(ResponseCheckEmailDuplicate.self, from: data) {
-                    DispatchQueue.main.async { completion(checkResult.result) }
+            guard let data = data else { print("데이터 없음"); return }
+            
+            if let decoded = try? JSONDecoder().decode(LoginModel.self, from: data) {
+                if (decoded.result == "성공") {
+                    completion(true, decoded.email!, decoded.name!, "")
+                } else {
+                    completion(false, "", "", "입력하신 계정 정보가 올바르지 않습니다.")
+                }
+            } 
+            
+        }.resume()
+    }
+    
+    // MARK: 중복확인
+    func checkDuplicate(_ email: String, completion: @escaping (Bool) -> ()) {
+        let object = RequestCheckEmailDuplicate(email: email)
+        
+        let request = makeRequestObject(object, url + "checkDuplicate")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { print("데이터 없음"); return }
+            
+            if let decoded = try? JSONDecoder().decode(ResponseCheckEmailDuplicate.self, from: data) {
+                if (decoded.result == "중복") {
+                    completion(true)
+                } else {
+                    completion(false)
                 }
             }
-            
-            print("중복 체크 에러")
         }.resume()
     }
     
