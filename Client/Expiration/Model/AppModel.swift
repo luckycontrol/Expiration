@@ -10,8 +10,11 @@ import CoreData
 
 class AppModel: ObservableObject {
     // MARK: 선택된 카테고리
-    @Published var selectedCateogry = "음식"
+    @Published var selectedCateogry = ""
     @Published var categoryList: [String] = []
+    
+    // MARK: Product 리스트
+    @Published var productList: [ProductStructure] = []
     
     // MARK: 선택된 정렬방식
     @Published var selectedOrderWay = "유통기한 순"

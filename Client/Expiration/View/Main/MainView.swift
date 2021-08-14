@@ -10,8 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @EnvironmentObject var appModel: AppModel
-    
-    @State private var products: [ResponseReadProduct] = []
+
     @State private var isLoading = false
     
     @State private var menu = false
@@ -19,6 +18,8 @@ struct MainView: View {
     @State private var edit = false
     @State private var changeOrderWay = false
     @State private var offset: CGSize = .zero
+    
+    @State private var selectedProduct: ProductStructure? = nil
     
     var formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -29,23 +30,27 @@ struct MainView: View {
     var body: some View {
         ZStack {
             List {
-                ForEach(0 ..< 15) { _ in
+                ForEach(appModel.productList, id: \._id) { product in
                     if #available(iOS 15.0, *) {
-                        Card()
+                        Card(product)
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(action: {}) {
                                     Label("삭제", systemImage: "trash")
                                 }
                                 .tint(.red)
                                 
-                                Button(action: {}) {
-                                    Label("수정", systemImage: "hammer")
+                                Button(action: {
+                                    selectedProduct = product
+                                    edit = true
+                                }) {
+                                    Label("수정", systemImage: "")
                                 }
                                 .tint(.yellow)
                             }
                     }
                 }
             }
+            .onAppear(perform: fetchProduct)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle(appModel.selectedCateogry)
             .navigationBarHidden(menu ? true : false)
@@ -75,6 +80,21 @@ struct MainView: View {
             }
             
             NavigationLink(destination: Add(), isActive: $add) { EmptyView() }
+            if (selectedProduct != nil) {
+                NavigationLink(destination: Edit(selectedProduct!), isActive: $edit) { EmptyView() }
+            }
+        }
+    }
+    
+    func fetchProduct() {
+        isLoading = true
+        
+        ProductApi().getProductList(appModel.email, appModel.selectedCateogry) { productList in
+            DispatchQueue.main.async {
+                appModel.productList = productList
+                
+                isLoading = false
+            }
         }
     }
 }

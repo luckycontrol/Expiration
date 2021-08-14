@@ -7,36 +7,64 @@
 
 import SwiftUI
 
-// Product 생성
+// MARK: Product 생성
 struct RequestCreateProduct: Codable {
-    var productCategory: String
+    var email: String
     var productName: String
-    var productImage: String
+    var category: String
+    var image: String
     var expiration: String
-    var username: String
 }
 
 struct ResponseCreateProduct: Codable {
     var result: String
+    var product: ProductStructure?
 }
 
-// Product 읽기
-struct RequestReadProduct: Codable {
-    var username: String
+
+// MARK: Product 리스트 가져오기
+struct RequestProductList: Codable {
+    var email: String
+    var category: String
 }
 
-struct ResponseReadProductResult: Codable {
-    var result: [ResponseReadProduct]
+struct ResponseProductList: Codable {
+    var productList: [ProductStructure]
 }
 
-struct ResponseReadProduct: Codable {
+
+// MARK: Product 리스트 삭제
+struct RequestRemoveProductList: Codable {
+    var email: String
+    var categoryName: String
+}
+
+struct ResponseRemoveProductList: Codable {
+    var result: String
+}
+
+
+// MARK: Product 업데이트
+struct RequestUpdateProduct: Codable {
+    var email: String
     var _id: String
-    var productCategory: String
-    var productName: String
-    var productImage: String
+    var name: String
+    var type: String
+    var image: String?
     var expiration: String
 }
 
-// Product 업데이트
+struct ResponseUpdateProduct: Codable {
+    var result: String
+}
 
-// Product 삭제
+
+// MARK: Product 구조
+struct ProductStructure: Codable {
+    var _id: String
+    var email: String
+    var name: String
+    var type: String
+    var image: String
+    var expiration: String
+}

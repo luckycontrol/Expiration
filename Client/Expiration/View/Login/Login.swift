@@ -9,6 +9,18 @@ import SwiftUI
 
 struct Login: View {
     
+//    @Environment(\.managedObjectContext) private var viewContext
+//
+//    @FetchRequest(
+//        entity: LoginSave.entity(),
+//        sortDescriptors: [
+//            NSSortDescriptor(keyPath: \LoginSave.id, ascending: true)
+//        ],
+//        animation: .default
+//    )
+//    
+//    private var loginState: FetchedResults<LoginSave>
+    
     let generator = UINotificationFeedbackGenerator()
     
     @EnvironmentObject var appModel: AppModel
@@ -91,15 +103,31 @@ struct Login: View {
                         appModel.email = email
                         appModel.name = name
                         appModel.categoryList = categoryList
+                        appModel.selectedCateogry = categoryList[0]
                         appModel.isLogin = true
                         generator.notificationOccurred(.success)
                     }
+                    
+                    handleSetAutoLogin(email, name)
                 }
             } else {
                 isAlert = true
                 alertMsg = msg
             }
         }
+    }
+    
+    func handleSetAutoLogin(_ email: String, _ name: String) {
+//        let newState = LoginSave(context: viewContext)
+//        newState.id = 0
+//        newState.email = email
+//        newState.name = name
+//
+//        do {
+//            try viewContext.save()
+//        } catch {
+//
+//        }
     }
 }
 

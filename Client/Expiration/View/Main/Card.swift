@@ -9,23 +9,39 @@ import SwiftUI
 
 struct Card: View {
     
-    let testdata: [String: Any] = ["name": "apple", "image": "test", "expiration": Date()]
-    
     var formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
         return dateFormatter
     }()
     
+    let name: String
+    let category: String
+    let image: Data?
+    let expiration: String
+    
+    init(_ product: ProductStructure) {
+        name = product.name
+        category = product.type
+        image = product.image == "" ? nil : Data(base64Encoded: product.image)
+        expiration = product.expiration
+    }
+    
     var body: some View {
         HStack {
-            Image(testdata["image"] as! String)
-                .resizable()
-                .frame(width: 40, height: 40)
+            if (image != nil) {
+                Image(uiImage: UIImage(data: image!)!)
+                    .resizable()
+                    .frame(width: 40, height: 40)
+            } else {
+                Image("LoginBackground")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+            }
             
             VStack(alignment: .leading) {
                 HStack {
-                    Text(testdata["name"] as! String)
+                    Text(name)
                         .fontWeight(.medium)
                         .font(.headline)
                     
@@ -33,7 +49,7 @@ struct Card: View {
                         .resizable()
                         .frame(width: 15, height: 15)
                 }
-                Text(testdata["expiration"] as! Date, formatter: formatter)
+                Text(expiration)
             }
             
             Spacer()
@@ -46,7 +62,9 @@ struct Card: View {
 
 struct Card_Previews: PreviewProvider {
     
+    static let product = ProductStructure(_id: "", email: "", name: "", type: "", image: "", expiration: "")
+    
     static var previews: some View {
-        Card()
+        Card(product)
     }
 }

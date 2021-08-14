@@ -1,18 +1,20 @@
 //
-//  Add.swift
-//  Expiration
+//  Edit.swift
+//  Edit
 //
-//  Created by 조종운 on 2021/05/13.
+//  Created by 조종운 on 2021/08/14.
 //
 
 import SwiftUI
 
-struct Add: View {
+struct Edit: View {
+    
     @Environment(\.presentationMode) var presentationMode
     let generator = UIImpactFeedbackGenerator(style: .medium)
-    
+
     @EnvironmentObject var appModel: AppModel
-    
+
+    @State private var _id = ""
     @State private var name = ""
     @State private var expiration = Date()
     @State private var image: UIImage?
@@ -23,6 +25,19 @@ struct Add: View {
     
     @State private var addResult = ""
     @State private var addAlert = false
+
+    let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        return dateFormatter
+    }()
+
+    init(_ product: ProductStructure) {
+        self._id = product._id
+        self.name = product.name
+        self.expiration = dateFormatter.date(from: product.expiration) ?? Date()
+        self.image = product.image == "" ? nil : UIImage(data: Data(base64Encoded: product.image)!)
+    }
     
     var body: some View {
         let insertActionSheet = ActionSheet(
@@ -44,8 +59,8 @@ struct Add: View {
         )
         
         let insertAlert = Alert(
-            title: Text(addResult),
-            message: Text("다시 한 번 시도해주세요."),
+            title: Text("수정하는데 문제가 생겼어요!"),
+            message: Text("\(addResult)."),
             dismissButton: Alert.Button.cancel(Text("확인"))
         )
         
@@ -117,8 +132,8 @@ struct Add: View {
                 Spacer()
                 
                 Button(action: {
-                    if (itemCheck()) {
-                        add()
+                    if(checkInputValid()) {
+                        
                     }
                 }) {
                     Text("\(appModel.selectedCateogry) 추가")
@@ -130,7 +145,7 @@ struct Add: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
             }
-            .navigationBarTitle("\(appModel.selectedCateogry) 추가")
+            .navigationBarTitle("\(appModel.selectedCateogry) 수정")
             .padding(30)
             .sheet(isPresented: $openImagePicker) {
                 Camera(sourceType: sourceType, selectedImage: $image)
@@ -139,33 +154,15 @@ struct Add: View {
         }
     }
     
-    func itemCheck() -> Bool {
-        if (name == "" || image == nil) {
+    func checkInputValid() -> Bool {
+        if (name == "") {
+            addResult = "이름을 입력해주세요"
+            addAlert = true
+            
             return false
         }
         
         return true
-    }
-    
-    // 추가
-    func add() {
-        let encodedImage = imageEncoding(image!)
-        let expiration = changeExpiration(expiration)
-        let newProduct = createProductObject(encodedImage, expiration)
-        
-        ProductApi().createProduct(newProduct) { status in
-            if (status) {
-                DispatchQueue.main.async {
-                    generator.impactOccurred()
-                    presentationMode.wrappedValue.dismiss()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    addResult = "\(name)을 추가하는데 문제가 생겼어요!"
-                    addAlert = true
-                }
-            }
-        }
     }
     
     // 이미지 인코딩
@@ -174,30 +171,31 @@ struct Add: View {
         return image.base64EncodedString()
     }
     
-    // 바디에 넣을 오브젝트 생성
-    func createProductObject(_ encodedImage: String, _ expiration: String) -> RequestCreateProduct {
-        let object = RequestCreateProduct(email: appModel.email, productName: name, category: appModel.selectedCateogry, image: encodedImage, expiration: expiration)
+    func handleUpdateProduct() {
+        let image = image == nil ? "" : imageEncoding(self.image!)
+        let expiration = dateFormatter.string(from: self.expiration)
         
-        return object
-    }
-    
-    // 날짜 Date -> String
-    func changeExpiration(_ expiration: Date) -> String {
-        let dateFormatter: DateFormatter = {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy년 MM월 dd일"
-            return dateFormatter
-        }()
-        
-        return dateFormatter.string(from: expiration)
+        ProductApi().updateProduct(appModel.email, _id, name, appModel.selectedCateogry, image, expiration) { status in
+            
+            if (!status) {
+                addResult = "수정하는데 문제가 생겼어요!"
+                addAlert = true
+                return
+            }
+            
+            generator.impactOccurred()
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 
-struct Add_Previews: PreviewProvider {
+struct Edit_Previews: PreviewProvider {
+    
+    static let product = ProductStructure(_id: "", email: "", name: "", type: "", image: "", expiration: "")
     
     static var previews: some View {
         NavigationView {
-            Add()
+            Edit(product)
                 .environmentObject(AppModel())
         }
     }

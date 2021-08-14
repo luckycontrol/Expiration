@@ -41,3 +41,11 @@ struct ResponseCreateNewCategory: Codable {
 }
 
 // MARK: 카테고리 삭제
+struct RequestRemoveCategory: Codable {
+    var email: String
+    var categoryName: String
+}
+
+struct ResponseRemoveCategory: Codable {
+    var result: String
+}

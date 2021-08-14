@@ -8,55 +8,101 @@
 import Foundation
 
 class ProductApi: ObservableObject {
-    let url = "http://0.0.0.0:5000/product"
+    let url = "http://192.168.1.3:3000/"
     
-    // 데이터 읽기
-    func readProduct(_ username: String, completion: @escaping ([ResponseReadProduct]) -> ()) {
-        if let url = URL(string: url + "/readProduct") {
-            let user = ["username": username]
+    // MARK: Product 생성
+    func createProduct(_ product: RequestCreateProduct, completion: @escaping (Bool) -> ()) {
+        let object = makeRequestObject(product, url + "createProduct")
+        
+        URLSession.shared.dataTask(with: object) { data, response, error in
+            guard let data = data else { print("데이터 없음"); return }
             
-            var request = URLRequest(url: url)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "POST"
-            request.httpBody = try? JSONEncoder().encode(user)
-            
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let data = data {
-                    if let result = try? JSONDecoder().decode(ResponseReadProductResult.self, from: data) {
-                        DispatchQueue.main.async {
-                            completion(result.result)
-                        }
-                    }
+            if let decoded = try? JSONDecoder().decode(ResponseCreateProduct.self, from: data) {
+                if (decoded.result == "성공") {
+                    completion(true)
+                } else {
+                    completion(false)
                 }
-                
-                print("데이터 읽기 응답 에러")
-            }.resume()
-        }
+            }
+        }.resume()
     }
     
-    // 데이터 쓰기
-    func createProduct(_ product: RequestCreateProduct, completion: @escaping (String) -> ()) {
-        if let url = URL(string: url + "/createProduct") {
+    // MARK: Product 리스트 가져오기
+    func getProductList(_ email: String, _ categoryName: String, completion: @escaping ([ProductStructure]) -> ()) {
+        let object = RequestProductList(email: email, category: categoryName)
+        
+        let request = makeRequestObject(object, url + "getProductList")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { print("데이터 없음"); return }
             
-            var request = URLRequest(url: url)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "POST"
-            request.httpBody = try? JSONEncoder().encode(product)
+            if let decoded = try? JSONDecoder().decode(ResponseProductList.self, from: data) {
+                completion(decoded.productList)
+                return
+            }
             
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let data = data {
-                    if let result = try? JSONDecoder().decode(ResponseCreateProduct.self, from: data) {
-                        completion(result.result)
-                    }
-                }
-                
-                print("데이터 생성 응답 에러")
-            }.resume()
-        }
+            print("디코딩 실패")
+        }.resume()
     }
     
-    // 데이터 업데이트
+    // MARK: 카테고리 삭제로인한 Product 리스트 삭제하기
+    func removeProductList(_ email: String, _ categoryName: String, completion: @escaping (Bool) -> ()) {
+        let object = RequestRemoveProductList(email: email, categoryName: categoryName)
+        
+        let request = makeRequestObject(object, url + "removeProductList")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { print("데이터 없음"); return }
+            
+            if let decoded = try? JSONDecoder().decode(ResponseRemoveProductList.self, from: data) {
+                if (decoded.result == "성공") {
+                    completion(true)
+                    return
+                }
+                
+                completion(false)
+            }
+        }.resume()
+    }
     
-    // 데이터 삭제
+    // MARK: Product 업데이트
+    func updateProduct(_ email: String, _ _id: String, _ name: String, _ type: String, _ image: String, _ expiration: String, completion: @escaping (Bool) -> ()) {
+        let object = RequestUpdateProduct(
+            email: email,
+            _id: _id,
+            name: name,
+            type: type,
+            image: image,
+            expiration: expiration
+        )
+        
+        let request = makeRequestObject(object, url + "updateProduct")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { print("데이터 없음"); return }
+            
+            if let decoded = try? JSONDecoder().decode(ResponseUpdateProduct.self, from: data) {
+                if (decoded.result == "성공") {
+                    completion(true)
+                    return
+                }
+                
+                completion(false)
+            }
+            
+        }.resume()
+    }
+    
+    // MARK: Request 객체 만들어 반환
+    func makeRequestObject<T: Codable> (_ requestObject: T, _ url: String) -> URLRequest {
+        let url = URL(string: url)!
+        
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONEncoder().encode(requestObject)
+        
+        return request
+    }
 }
 

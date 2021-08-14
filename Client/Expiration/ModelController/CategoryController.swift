@@ -71,6 +71,26 @@ class CategoryApi {
     }
     
     
+    // MARK: 카테고리 삭제
+    func removeCategory(_ email: String, _ categoryName: String, completion: @escaping (Bool) -> ()) {
+        let object = RequestRemoveCategory(email: email, categoryName: categoryName)
+        
+        let request = makeRequestObject(object, url + "removeCategory")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { print("데이터 없음"); return }
+            
+            if let decoded = try? JSONDecoder().decode(ResponseRemoveCategory.self, from: data) {
+                if (decoded.result == "성공") {
+                    completion(true)
+                    return
+                }
+                
+                completion(false)
+            }
+        }.resume()
+    }
+    
     // MARK: Request 객체 만들어 반환
     func makeRequestObject<T: Codable> (_ requestObject: T, _ url: String) -> URLRequest {
         let url = URL(string: url)!
