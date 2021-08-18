@@ -13,8 +13,9 @@ struct Edit: View {
     let generator = UIImpactFeedbackGenerator(style: .medium)
 
     @EnvironmentObject var appModel: AppModel
+    
+    let product: ProductStructure
 
-    @State private var _id = ""
     @State private var name = ""
     @State private var expiration = Date()
     @State private var image: UIImage?
@@ -31,13 +32,6 @@ struct Edit: View {
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
         return dateFormatter
     }()
-
-    init(_ product: ProductStructure) {
-        self._id = product._id
-        self.name = product.name
-        self.expiration = dateFormatter.date(from: product.expiration) ?? Date()
-        self.image = product.image == "" ? nil : UIImage(data: Data(base64Encoded: product.image)!)
-    }
     
     var body: some View {
         let insertActionSheet = ActionSheet(
@@ -133,10 +127,10 @@ struct Edit: View {
                 
                 Button(action: {
                     if(checkInputValid()) {
-                        
+                        handleUpdateProduct()
                     }
                 }) {
-                    Text("\(appModel.selectedCateogry) 추가")
+                    Text("\(appModel.selectedCateogry) 수정")
                         .foregroundColor(.white)
                         .fontWeight(.semibold)
                         .frame(height: 50)
@@ -152,11 +146,16 @@ struct Edit: View {
             }
             .alert(isPresented: $addAlert) { insertAlert }
         }
+        .onAppear {
+            name = product.name
+            expiration = dateFormatter.date(from: product.expiration)!
+            image = product.image == "" ? nil : loadImageInDocument(product.image)
+        }
     }
     
     func checkInputValid() -> Bool {
-        if (name == "") {
-            addResult = "이름을 입력해주세요"
+        if (name == "" || image == nil) {
+            addResult = "이름과 이미지를 채워주세요!"
             addAlert = true
             
             return false
@@ -172,19 +171,20 @@ struct Edit: View {
     }
     
     func handleUpdateProduct() {
-        let image = image == nil ? "" : imageEncoding(self.image!)
+        updateImageInDocument(product.image, image!)
+        
         let expiration = dateFormatter.string(from: self.expiration)
         
-        ProductApi().updateProduct(appModel.email, _id, name, appModel.selectedCateogry, image, expiration) { status in
-            
-            if (!status) {
-                addResult = "수정하는데 문제가 생겼어요!"
-                addAlert = true
-                return
+        let object = RequestUpdateProduct(email: appModel.email, _id: product._id, name: name, type: appModel.selectedCateogry, expiration: expiration)
+        
+        ProductApi().updateProduct(object) { status in
+            if (status) {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                
+                DispatchQueue.main.async {
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
-            
-            generator.impactOccurred()
-            presentationMode.wrappedValue.dismiss()
         }
     }
 }
@@ -195,7 +195,7 @@ struct Edit_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            Edit(product)
+            Edit(product: product)
                 .environmentObject(AppModel())
         }
     }

@@ -11,7 +11,7 @@ class ProductApi: ObservableObject {
     let url = "http://192.168.1.3:3000/"
     
     // MARK: Product 생성
-    func createProduct(_ product: RequestCreateProduct, completion: @escaping (Bool) -> ()) {
+    func createProduct(_ product: RequestCreateProduct, completion: @escaping (Bool, ProductStructure?) -> ()) {
         let object = makeRequestObject(product, url + "createProduct")
         
         URLSession.shared.dataTask(with: object) { data, response, error in
@@ -19,9 +19,9 @@ class ProductApi: ObservableObject {
             
             if let decoded = try? JSONDecoder().decode(ResponseCreateProduct.self, from: data) {
                 if (decoded.result == "성공") {
-                    completion(true)
+                    completion(true, decoded.product)
                 } else {
-                    completion(false)
+                    completion(false, nil)
                 }
             }
         }.resume()
@@ -66,30 +66,32 @@ class ProductApi: ObservableObject {
     }
     
     // MARK: Product 업데이트
-    func updateProduct(_ email: String, _ _id: String, _ name: String, _ type: String, _ image: String, _ expiration: String, completion: @escaping (Bool) -> ()) {
-        let object = RequestUpdateProduct(
-            email: email,
-            _id: _id,
-            name: name,
-            type: type,
-            image: image,
-            expiration: expiration
-        )
+    func updateProduct(_ object: RequestUpdateProduct, completion: @escaping (Bool) -> ()) {
         
         let request = makeRequestObject(object, url + "updateProduct")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { print("데이터 없음"); return }
             
-            if let decoded = try? JSONDecoder().decode(ResponseUpdateProduct.self, from: data) {
-                if (decoded.result == "성공") {
-                    completion(true)
-                    return
-                }
-                
-                completion(false)
+            if let _ = try? JSONDecoder().decode(ResponseUpdateProduct.self, from: data) {
+                completion(true)
             }
             
+        }.resume()
+    }
+    
+    // MARK: Product 삭제
+    func removeProduct(_ email: String, _ _id: String, completion: @escaping (Bool) -> ()) {
+        let object = RequestRemoveProduct(email: email, _id: _id)
+        
+        let request = makeRequestObject(object, url + "removeProduct")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { print("데이터 없음"); return }
+            
+            if let decoded = try? JSONDecoder().decode(ResponseRemoveProduct.self, from: data) {
+                completion(true)
+            }
         }.resume()
     }
     

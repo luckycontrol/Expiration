@@ -9,6 +9,9 @@ import SwiftUI
 
 struct Add: View {
     @Environment(\.presentationMode) var presentationMode
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    
     let generator = UIImpactFeedbackGenerator(style: .medium)
     
     @EnvironmentObject var appModel: AppModel
@@ -130,6 +133,7 @@ struct Add: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle("\(appModel.selectedCateogry) 추가")
             .padding(30)
             .sheet(isPresented: $openImagePicker) {
@@ -141,6 +145,8 @@ struct Add: View {
     
     func itemCheck() -> Bool {
         if (name == "" || image == nil) {
+            addResult = "이름과 이미지를 모두 채워주세요."
+            addAlert = true
             return false
         }
         
@@ -149,11 +155,12 @@ struct Add: View {
     
     // 추가
     func add() {
-        let encodedImage = imageEncoding(image!)
-        let expiration = changeExpiration(expiration)
-        let newProduct = createProductObject(encodedImage, expiration)
+        let imagePath = "\(saveImageInDocument(image!))"
         
-        ProductApi().createProduct(newProduct) { status in
+        let expiration = changeExpiration(expiration)
+        let newProduct = createProductObject(imagePath, expiration)
+        
+        ProductApi().createProduct(newProduct) { status, product in
             if (status) {
                 DispatchQueue.main.async {
                     generator.impactOccurred()

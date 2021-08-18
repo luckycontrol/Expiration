@@ -17,7 +17,7 @@ struct ContentView: View {
     }
 
     var body: some View {
-        NavigationView {
+        Group {
             if appModel.isLogin { MainView() }
             else { Login() }
         }

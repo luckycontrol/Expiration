@@ -9,19 +9,20 @@ import SwiftUI
 
 struct Login: View {
     
-//    @Environment(\.managedObjectContext) private var viewContext
-//
-//    @FetchRequest(
-//        entity: LoginSave.entity(),
-//        sortDescriptors: [
-//            NSSortDescriptor(keyPath: \LoginSave.id, ascending: true)
-//        ],
-//        animation: .default
-//    )
-//    
-//    private var loginState: FetchedResults<LoginSave>
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(
+        entity: LoginState.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \LoginState.id, ascending: true)
+        ],
+        animation: .default
+    )
+    
+    private var loginState: FetchedResults<LoginState>
     
     let generator = UINotificationFeedbackGenerator()
+    let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
     
     @EnvironmentObject var appModel: AppModel
     
@@ -32,7 +33,7 @@ struct Login: View {
     @State private var alertMsg = ""
     
     var body: some View {
-        ZStack {
+        NavigationView {
             VStack {
                 VStack(alignment: .leading) {
                     Text("이메일")
@@ -64,7 +65,6 @@ struct Login: View {
                     
                     NavigationLink(destination: CreateAccount()) {
                         Text("계정 만들기")
-                            .font(.callout)
                     }
                 }
                 .padding(.top, 35)
@@ -83,22 +83,39 @@ struct Login: View {
                 }
             }
             .padding(20)
+            .navigationBarTitle("유통기한 관리사")
+            .navigationBarTitleDisplayMode(.large)
+            .alert(isPresented: $isAlert) {
+                Alert(
+                    title: Text("로그인에 문제가 생겼어요!"),
+                    message: Text("\(alertMsg)"),
+                    dismissButton: .default(Text("알겠어요."))
+                )
+            }
+            .onAppear {
+                if (loginState.count >= 1) {
+                    CategoryApi().getCategoryList(loginState[0].email!) { categoryList in
+                        DispatchQueue.main.async {
+                            appModel.email = loginState[0].email!
+                            appModel.name = loginState[0].name!
+                            appModel.categoryList = categoryList
+                            appModel.selectedCateogry = categoryList[0]
+                            appModel.isLogin = true
+                            generator.notificationOccurred(.success)
+                        }
+                    }
+                }
+            }
         }
-        .navigationBarTitle("유통기한 관리사")
-        .alert(isPresented: $isAlert) {
-            Alert(
-                title: Text("로그인에 문제가 생겼어요!"),
-                message: Text("\(alertMsg)"),
-                dismissButton: .default(Text("알겠어요."))
-            )
-        }
-
     }
     
     func handleLogin() {
         AccountApi().login(email, password) { status, email, name, msg in
             if (status) {
                 CategoryApi().getCategoryList(email) { categoryList in
+                    
+                    handleSetAutoLogin(email, name)
+                    
                     DispatchQueue.main.async {
                         appModel.email = email
                         appModel.name = name
@@ -107,8 +124,6 @@ struct Login: View {
                         appModel.isLogin = true
                         generator.notificationOccurred(.success)
                     }
-                    
-                    handleSetAutoLogin(email, name)
                 }
             } else {
                 isAlert = true
@@ -118,24 +133,29 @@ struct Login: View {
     }
     
     func handleSetAutoLogin(_ email: String, _ name: String) {
-//        let newState = LoginSave(context: viewContext)
-//        newState.id = 0
-//        newState.email = email
-//        newState.name = name
-//
-//        do {
-//            try viewContext.save()
-//        } catch {
-//
-//        }
+        if (loginState.count >= 1) {
+            loginState[0].email = email
+            loginState[0].name = name
+            
+        } else {
+            let newState = LoginState(context: viewContext)
+            newState.id = 0
+            newState.email = email
+            newState.name = name
+        }
+
+        do {
+            try viewContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 
 struct Login_Previews: PreviewProvider {
     
     static var previews: some View {
-        NavigationView {
-            Login()
-        }.environmentObject(AppModel())
+        Login()
+            .environmentObject(AppModel())
     }
 }

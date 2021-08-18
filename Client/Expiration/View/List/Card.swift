@@ -17,20 +17,41 @@ struct Card: View {
     
     let name: String
     let category: String
-    let image: Data?
+    let image: UIImage?
     let expiration: String
+    var status: String
     
     init(_ product: ProductStructure) {
         name = product.name
         category = product.type
-        image = product.image == "" ? nil : Data(base64Encoded: product.image)
+        image = product.image == "" ? nil : loadImageInDocument(product.image)
         expiration = product.expiration
+        
+        let expiration_date = formatter.date(from: expiration)!
+        let component = Calendar.current.dateComponents([.year, .month, .day], from: expiration_date)
+        let productExpiration = Calendar.current.date(from: component)!
+        
+        let week = Calendar.current.date(byAdding: .day, value: -7, to: productExpiration)!
+        let three = Calendar.current.date(byAdding: .day, value: -3, to: productExpiration)!
+        let one = productExpiration
+        
+        if productExpiration < week {
+            status = "유통기한 일주일남음"
+        }
+        if productExpiration < three {
+            status = "유통기한 삼일남음"
+        }
+        if productExpiration <= one {
+            status = "유통기한 하루남음"
+        } else {
+            status = "유통기한 지남"
+        }
     }
     
     var body: some View {
         HStack {
             if (image != nil) {
-                Image(uiImage: UIImage(data: image!)!)
+                Image(uiImage: image!)
                     .resizable()
                     .frame(width: 40, height: 40)
             } else {
@@ -45,10 +66,11 @@ struct Card: View {
                         .fontWeight(.medium)
                         .font(.headline)
                     
-                    Image("유통기한 일주일남음")
+                    Image(status)
                         .resizable()
                         .frame(width: 15, height: 15)
                 }
+                
                 Text(expiration)
             }
             
@@ -62,7 +84,7 @@ struct Card: View {
 
 struct Card_Previews: PreviewProvider {
     
-    static let product = ProductStructure(_id: "", email: "", name: "", type: "", image: "", expiration: "")
+    static let product = ProductStructure(_id: "", email: "", name: "사과", type: "음식", image: "", expiration: "2021년 8월 18일")
     
     static var previews: some View {
         Card(product)

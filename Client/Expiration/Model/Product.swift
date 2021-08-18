@@ -50,11 +50,21 @@ struct RequestUpdateProduct: Codable {
     var _id: String
     var name: String
     var type: String
-    var image: String?
     var expiration: String
 }
 
 struct ResponseUpdateProduct: Codable {
+    var result: String
+}
+
+
+// MARK: Product 삭제
+struct RequestRemoveProduct: Codable {
+    var email: String
+    var _id: String
+}
+
+struct ResponseRemoveProduct: Codable {
     var result: String
 }
 
