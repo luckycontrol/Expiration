@@ -28,20 +28,21 @@ struct Card: View {
         expiration = product.expiration
         
         let expiration_date = formatter.date(from: expiration)!
-        let component = Calendar.current.dateComponents([.year, .month, .day], from: expiration_date)
-        let productExpiration = Calendar.current.date(from: component)!
+        let productComponent = Calendar.current.dateComponents([.year, .month, .day], from: expiration_date)
+        let productExpiration = Calendar.current.date(from: productComponent)!
         
         let week = Calendar.current.date(byAdding: .day, value: -7, to: productExpiration)!
         let three = Calendar.current.date(byAdding: .day, value: -3, to: productExpiration)!
         let one = productExpiration
         
-        if productExpiration < week {
+        let nowComponent = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        let now = Calendar.current.date(from: nowComponent)!
+        
+        if now <= week {
             status = "유통기한 일주일남음"
-        }
-        if productExpiration < three {
+        } else if now <= three {
             status = "유통기한 삼일남음"
-        }
-        if productExpiration <= one {
+        } else if now <= one {
             status = "유통기한 하루남음"
         } else {
             status = "유통기한 지남"
@@ -84,7 +85,7 @@ struct Card: View {
 
 struct Card_Previews: PreviewProvider {
     
-    static let product = ProductStructure(_id: "", email: "", name: "사과", type: "음식", image: "", expiration: "2021년 8월 18일")
+    static let product = ProductStructure(_id: "", email: "", name: "사과", type: "음식", image: "", expiration: "2021년 8월 26일")
     
     static var previews: some View {
         Card(product)

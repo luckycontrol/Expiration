@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6629435626D09AAE00E3D1E2 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629435526D09AAE00E3D1E2 /* Setting.swift */; };
+		6629435826D0A03F00E3D1E2 /* AlarmSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629435726D0A03F00E3D1E2 /* AlarmSetting.swift */; };
 		66297814264CCC04007E4B17 /* Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66297813264CCC04007E4B17 /* Add.swift */; };
 		66297817264CEF94007E4B17 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66297816264CEF94007E4B17 /* Camera.swift */; };
 		662D6F6126CC594600BE492B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 662D6F6026CC594600BE492B /* GoogleService-Info.plist */; };
+		6633EF5926CDE0C2001249FA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6633EF5826CDE0C2001249FA /* LoadingView.swift */; };
 		6660FA3A26C8B4E100128FBF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660FA3926C8B4E100128FBF /* MainView.swift */; };
 		6660FA4126C9715000128FBF /* FileManagerController.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660FA4026C9715000128FBF /* FileManagerController.swift.swift */; };
-		6660FA4326C97F9800128FBF /* Practice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660FA4226C97F9800128FBF /* Practice.swift */; };
+		666A704426D0B8AA00853E1E /* FCM.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A704326D0B8AA00853E1E /* FCM.swift.swift */; };
+		666A704626D0B8F700853E1E /* FCMController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A704526D0B8F700853E1E /* FCMController.swift */; };
+		666A704926D1FC0900853E1E /* HelpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A704826D1FC0900853E1E /* HelpScreen.swift */; };
+		666A704B26D1FF0100853E1E /* IntroduceThisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A704A26D1FF0100853E1E /* IntroduceThisApp.swift */; };
+		666A704D26D1FF4E00853E1E /* HowToAddProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A704C26D1FF4E00853E1E /* HowToAddProduct.swift */; };
+		666A704F26D1FF5700853E1E /* HowToAddCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A704E26D1FF5700853E1E /* HowToAddCategory.swift */; };
+		666A705126D1FF6E00853E1E /* HowToSetAlertTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A705026D1FF6E00853E1E /* HowToSetAlertTime.swift */; };
+		666A705326D1FF7D00853E1E /* PleaseLetMeKnow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A705226D1FF7D00853E1E /* PleaseLetMeKnow.swift */; };
 		66756210264BDEEC00EF0CE8 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6675620F264BDEEC00EF0CE8 /* Menu.swift */; };
 		6676CC37264B7C6E00AA4B38 /* ExpirationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC36264B7C6E00AA4B38 /* ExpirationApp.swift */; };
 		6676CC39264B7C6E00AA4B38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6676CC38264B7C6E00AA4B38 /* ContentView.swift */; };
@@ -24,6 +34,7 @@
 		6681D5AA26C80AA7009F77C6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6681D5A926C80AA7009F77C6 /* Persistence.swift */; };
 		6681D5AD26C87DA6009F77C6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6681D5AC26C87DA6009F77C6 /* FirebaseAnalytics */; };
 		6681D5AF26C87DA6009F77C6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6681D5AE26C87DA6009F77C6 /* FirebaseMessaging */; };
+		669DDCEA26D84C4A002E8810 /* TestView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DDCE926D84C4A002E8810 /* TestView.swift.swift */; };
 		66A7209826C7199600CEA40B /* Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A7209726C7199600CEA40B /* Edit.swift */; };
 		66B7FD01268D1CE60057B39C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B7FD00268D1CE60057B39C /* Login.swift */; };
 		66B7FD03268D1CF70057B39C /* CreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B7FD02268D1CF70057B39C /* CreateAccount.swift */; };
@@ -35,6 +46,7 @@
 		66D284F1268987C900EDD2E6 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D284F0268987C900EDD2E6 /* Member.swift */; };
 		66D284F3268987FD00EDD2E6 /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D284F2268987FD00EDD2E6 /* ProductController.swift */; };
 		66D284F52689880700EDD2E6 /* MemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D284F42689880700EDD2E6 /* MemberController.swift */; };
+		66F124BB26D2321C00B924D4 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F124BA26D2321C00B924D4 /* UserRequest.swift */; };
 		66F8CE1626C56DBC00B88E43 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F8CE1526C56DBC00B88E43 /* Category.swift */; };
 		66F8CE1826C586DF00B88E43 /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F8CE1726C586DF00B88E43 /* CategoryController.swift */; };
 /* End PBXBuildFile section */
@@ -57,13 +69,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6629435526D09AAE00E3D1E2 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		6629435726D0A03F00E3D1E2 /* AlarmSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSetting.swift; sourceTree = "<group>"; };
 		66297813264CCC04007E4B17 /* Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add.swift; sourceTree = "<group>"; };
 		66297816264CEF94007E4B17 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		662D6F6026CC594600BE492B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		662D6F6226CC5F4400BE492B /* Expiration.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Expiration.entitlements; sourceTree = "<group>"; };
+		6633EF5826CDE0C2001249FA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6660FA3926C8B4E100128FBF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6660FA4026C9715000128FBF /* FileManagerController.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerController.swift.swift; sourceTree = "<group>"; };
-		6660FA4226C97F9800128FBF /* Practice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Practice.swift; sourceTree = "<group>"; };
+		666A704326D0B8AA00853E1E /* FCM.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCM.swift.swift; sourceTree = "<group>"; };
+		666A704526D0B8F700853E1E /* FCMController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMController.swift; sourceTree = "<group>"; };
+		666A704826D1FC0900853E1E /* HelpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreen.swift; sourceTree = "<group>"; };
+		666A704A26D1FF0100853E1E /* IntroduceThisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceThisApp.swift; sourceTree = "<group>"; };
+		666A704C26D1FF4E00853E1E /* HowToAddProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToAddProduct.swift; sourceTree = "<group>"; };
+		666A704E26D1FF5700853E1E /* HowToAddCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToAddCategory.swift; sourceTree = "<group>"; };
+		666A705026D1FF6E00853E1E /* HowToSetAlertTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToSetAlertTime.swift; sourceTree = "<group>"; };
+		666A705226D1FF7D00853E1E /* PleaseLetMeKnow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleaseLetMeKnow.swift; sourceTree = "<group>"; };
 		6675620F264BDEEC00EF0CE8 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		6676CC33264B7C6E00AA4B38 /* Expiration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Expiration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6676CC36264B7C6E00AA4B38 /* ExpirationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationApp.swift; sourceTree = "<group>"; };
@@ -79,6 +101,7 @@
 		6676CC5A264B7C6E00AA4B38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6681D5A726C80A3D009F77C6 /* Expiration.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Expiration.xcdatamodel; sourceTree = "<group>"; };
 		6681D5A926C80AA7009F77C6 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		669DDCE926D84C4A002E8810 /* TestView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift.swift; sourceTree = "<group>"; };
 		66A7209726C7199600CEA40B /* Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit.swift; sourceTree = "<group>"; };
 		66B7FD00268D1CE60057B39C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		66B7FD02268D1CF70057B39C /* CreateAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccount.swift; sourceTree = "<group>"; };
@@ -90,6 +113,7 @@
 		66D284F0268987C900EDD2E6 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		66D284F2268987FD00EDD2E6 /* ProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
 		66D284F42689880700EDD2E6 /* MemberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberController.swift; sourceTree = "<group>"; };
+		66F124BA26D2321C00B924D4 /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		66F8CE1526C56DBC00B88E43 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		66F8CE1726C586DF00B88E43 /* CategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,12 +145,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6629435426D09AA200E3D1E2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6629435526D09AAE00E3D1E2 /* Setting.swift */,
+				6629435726D0A03F00E3D1E2 /* AlarmSetting.swift */,
+				66F124BA26D2321C00B924D4 /* UserRequest.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		66297815264CEF82007E4B17 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				66297816264CEF94007E4B17 /* Camera.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6633EF5726CDE0B4001249FA /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				6633EF5826CDE0C2001249FA /* LoadingView.swift */,
+			);
+			path = Loading;
 			sourceTree = "<group>";
 		};
 		66577C4926895C70009412E2 /* Login */ = {
@@ -170,6 +212,7 @@
 				66D284F2268987FD00EDD2E6 /* ProductController.swift */,
 				66D284F42689880700EDD2E6 /* MemberController.swift */,
 				66F8CE1726C586DF00B88E43 /* CategoryController.swift */,
+				666A704526D0B8F700853E1E /* FCMController.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -188,6 +231,19 @@
 				6660FA4026C9715000128FBF /* FileManagerController.swift.swift */,
 			);
 			path = FileManager;
+			sourceTree = "<group>";
+		};
+		666A704726D1FBF800853E1E /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				666A704826D1FC0900853E1E /* HelpScreen.swift */,
+				666A704A26D1FF0100853E1E /* IntroduceThisApp.swift */,
+				666A704C26D1FF4E00853E1E /* HowToAddProduct.swift */,
+				666A704E26D1FF5700853E1E /* HowToAddCategory.swift */,
+				666A705026D1FF6E00853E1E /* HowToSetAlertTime.swift */,
+				666A705226D1FF7D00853E1E /* PleaseLetMeKnow.swift */,
+			);
+			path = Help;
 			sourceTree = "<group>";
 		};
 		6676CC2A264B7C6E00AA4B38 = {
@@ -220,13 +276,13 @@
 				66C7A889264B7DCD00ED7C68 /* shared */,
 				66C7A88A264B7DF200ED7C68 /* View */,
 				66297815264CEF82007E4B17 /* ViewController */,
+				6681D5A926C80AA7009F77C6 /* Persistence.swift */,
 				6676CC3A264B7C6E00AA4B38 /* Assets.xcassets */,
 				6676CC44264B7C6E00AA4B38 /* Info.plist */,
 				6676CC3C264B7C6E00AA4B38 /* Preview Content */,
 				6681D5A626C80A3D009F77C6 /* Expiration.xcdatamodeld */,
-				6681D5A926C80AA7009F77C6 /* Persistence.swift */,
-				6660FA4226C97F9800128FBF /* Practice.swift */,
 				662D6F6026CC594600BE492B /* GoogleService-Info.plist */,
+				669DDCE926D84C4A002E8810 /* TestView.swift.swift */,
 			);
 			path = Expiration;
 			sourceTree = "<group>";
@@ -272,6 +328,7 @@
 				66C7A88F264BCCC100ED7C68 /* Product.swift */,
 				66D284F0268987C900EDD2E6 /* Member.swift */,
 				66F8CE1526C56DBC00B88E43 /* Category.swift */,
+				666A704326D0B8AA00853E1E /* FCM.swift.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -288,6 +345,9 @@
 		66C7A88A264B7DF200ED7C68 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				666A704726D1FBF800853E1E /* Help */,
+				6629435426D09AA200E3D1E2 /* Settings */,
+				6633EF5726CDE0B4001249FA /* Loading */,
 				6660FA3826C8B4D400128FBF /* Main */,
 				66A7209626C7198100CEA40B /* Edit */,
 				66577C4C26895CB0009412E2 /* Add */,
@@ -436,29 +496,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				666A704926D1FC0900853E1E /* HelpScreen.swift in Sources */,
 				66297817264CEF94007E4B17 /* Camera.swift in Sources */,
-				6660FA4326C97F9800128FBF /* Practice.swift in Sources */,
+				669DDCEA26D84C4A002E8810 /* TestView.swift.swift in Sources */,
 				6660FA3A26C8B4E100128FBF /* MainView.swift in Sources */,
 				66C7A888264B7DC600ED7C68 /* AppModel.swift in Sources */,
 				66F8CE1626C56DBC00B88E43 /* Category.swift in Sources */,
+				6633EF5926CDE0C2001249FA /* LoadingView.swift in Sources */,
+				666A704426D0B8AA00853E1E /* FCM.swift.swift in Sources */,
 				66F8CE1826C586DF00B88E43 /* CategoryController.swift in Sources */,
 				6676CC39264B7C6E00AA4B38 /* ContentView.swift in Sources */,
 				6660FA4126C9715000128FBF /* FileManagerController.swift.swift in Sources */,
+				6629435626D09AAE00E3D1E2 /* Setting.swift in Sources */,
 				66297814264CCC04007E4B17 /* Add.swift in Sources */,
 				66C7A885264B7D6300ED7C68 /* ListView.swift in Sources */,
 				66D284F52689880700EDD2E6 /* MemberController.swift in Sources */,
 				66B7FD03268D1CF70057B39C /* CreateAccount.swift in Sources */,
 				6681D5AA26C80AA7009F77C6 /* Persistence.swift in Sources */,
 				6681D5A826C80A3D009F77C6 /* Expiration.xcdatamodeld in Sources */,
+				66F124BB26D2321C00B924D4 /* UserRequest.swift in Sources */,
+				666A704626D0B8F700853E1E /* FCMController.swift in Sources */,
 				66A7209826C7199600CEA40B /* Edit.swift in Sources */,
 				66B7FD01268D1CE60057B39C /* Login.swift in Sources */,
 				66D284F1268987C900EDD2E6 /* Member.swift in Sources */,
+				6629435826D0A03F00E3D1E2 /* AlarmSetting.swift in Sources */,
+				666A705126D1FF6E00853E1E /* HowToSetAlertTime.swift in Sources */,
 				66B7FD05268D1D030057B39C /* FindAccount.swift in Sources */,
+				666A704B26D1FF0100853E1E /* IntroduceThisApp.swift in Sources */,
 				66D284F3268987FD00EDD2E6 /* ProductController.swift in Sources */,
 				6676CC37264B7C6E00AA4B38 /* ExpirationApp.swift in Sources */,
 				66756210264BDEEC00EF0CE8 /* Menu.swift in Sources */,
+				666A705326D1FF7D00853E1E /* PleaseLetMeKnow.swift in Sources */,
 				66C7A88E264BCBD900ED7C68 /* Card.swift in Sources */,
 				66C7A890264BCCC100ED7C68 /* Product.swift in Sources */,
+				666A704F26D1FF5700853E1E /* HowToAddCategory.swift in Sources */,
+				666A704D26D1FF4E00853E1E /* HowToAddProduct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +689,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Expiration/Expiration.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Expiration/Preview Content\"";
@@ -640,6 +713,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Expiration/Expiration.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Expiration/Preview Content\"";

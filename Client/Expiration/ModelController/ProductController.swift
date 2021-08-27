@@ -8,7 +8,7 @@
 import Foundation
 
 class ProductApi: ObservableObject {
-    let url = "http://192.168.1.3:3000/"
+    let url = "https://expiration-server.herokuapp.com/"
     
     // MARK: Product 생성
     func createProduct(_ product: RequestCreateProduct, completion: @escaping (Bool, ProductStructure?) -> ()) {

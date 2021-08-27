@@ -16,11 +16,18 @@ struct Menu: View {
     
     @State private var offset: CGSize = .zero
     
-    @State private var removeCategory = ""
-    @State private var removeAlert = false
-    
+    // 메뉴
     @Binding var menu: Bool
+    
+    // 카테고리
     @Binding var isAppendCategory: Bool
+    @Binding var isRemoveCategory: Bool
+    @Binding var selectedRemoveCategory: String
+    
+    // 알림 설정
+    @Binding var isSetting: Bool
+    
+    // 로그아웃
     @Binding var isLogout: Bool
     
     var body: some View {
@@ -94,6 +101,7 @@ struct Menu: View {
                                 ForEach(appModel.categoryList, id: \.self) { category in
                                     Button(action: {
                                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        appModel.isLoading = true
                                         appModel.selectedCateogry = category
                                         handleSelectCategoryAndChangeProductList(category)
                                     }) {
@@ -106,8 +114,8 @@ struct Menu: View {
         
                                             if (isEdit) {
                                                 Button(action: {
-                                                    removeCategory = category
-                                                    removeAlert = true
+                                                    selectedRemoveCategory = category
+                                                    isRemoveCategory = true
                                                 }) {
                                                     Image(systemName: "xmark")
                                                         .foregroundColor(.white)
@@ -119,13 +127,6 @@ struct Menu: View {
                                         .background(appModel.selectedCateogry == category ? Color.black.opacity(0.4) : nil)
                                         .cornerRadius(10)
                                     }
-                                }
-                                .alert(isPresented: $removeAlert) {
-                                    Alert(
-                                        title: Text("\(removeCategory) 카테고리를 삭제하실건가요?"),
-                                        primaryButton: .default(Text("삭제"), action: handleRemoveCategory),
-                                        secondaryButton: .default(Text("취소"))
-                                    )
                                 }
         
                                 Button(action: {
@@ -142,10 +143,22 @@ struct Menu: View {
                             .padding(.top, 5)
                             .padding(.leading, 10)
         
-                            Button(action: { isLogout = true }) {
-                                Text("로그아웃")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                            VStack(alignment: .leading, spacing: 12) {
+                                Button(action: {
+                                    menu = false
+                                    isSetting = true
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                }) {
+                                    Text("설정")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                }
+                                
+                                Button(action: { isLogout = true }) {
+                                    Text("로그아웃")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                }
                             }
                             .padding(.top, 50)
                         }
@@ -165,25 +178,7 @@ struct Menu: View {
         ProductApi().getProductList(appModel.email, categoryName) { productList in
             DispatchQueue.main.async {
                 appModel.productList = productList
-            }
-        }
-    }
-    
-    // MARK: 카테고리 삭제 함수
-    func handleRemoveCategory() {
-        CategoryApi().removeCategory(appModel.email, removeCategory) { status in
-            ProductApi().removeProductList(appModel.email, removeCategory) { status in
-                DispatchQueue.main.async {
-                    appModel.categoryList = appModel.categoryList.filter { category in category != removeCategory }
-                    appModel.selectedCateogry = appModel.categoryList[0]
-                    
-                    ProductApi().getProductList(appModel.email, appModel.selectedCateogry) { productList in
-                        DispatchQueue.main.async {
-                            appModel.productList = productList
-                            generator.impactOccurred()
-                        }
-                    }
-                }
+                appModel.isLoading = false
             }
         }
     }
@@ -192,7 +187,15 @@ struct Menu: View {
 struct Menu_Previews: PreviewProvider {
     
     static var previews: some View {
-        Menu(menu: .constant(false), isAppendCategory: .constant(false), isLogout: .constant(false)).environmentObject(AppModel())
+        Menu(
+            menu: .constant(false),
+            isAppendCategory: .constant(false),
+            isRemoveCategory: .constant(false),
+            selectedRemoveCategory: .constant(""),
+            isSetting: .constant(false),
+            isLogout: .constant(false)
+        )
+        .environmentObject(AppModel())
     }
 }
 

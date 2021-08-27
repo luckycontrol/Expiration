@@ -22,6 +22,9 @@ class AppModel: ObservableObject {
     // MARK: 로그인 유무
     @Published var isLogin = false
     
+    // MARK: 로딩
+    @Published var isLoading = false
+    
     // MARK: 로그인된 사용자 이메일
     @Published var email = ""
     @Published var name = ""

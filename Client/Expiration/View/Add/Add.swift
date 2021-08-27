@@ -77,7 +77,7 @@ struct Add: View {
                         .overlay(
                             ZStack(alignment: .center) {
                                 VStack {
-                                    Image(systemName: "photo.fill")
+                                    Image(systemName: "photo")
                                         .resizable()
                                         .frame(width: 50, height: 50)
                                         .scaledToFit()

@@ -23,6 +23,10 @@ struct ListView: View {
     
     @State private var removeAlert: Bool = false
     
+    @State private var isHelp: Bool = false
+    
+    @State private var animate: Bool = false
+    
     var formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
@@ -34,64 +38,78 @@ struct ListView: View {
             Rectangle()
                 .overlay(
                     VStack {
-                        // MARK: 상단 메뉴
-                        HStack {
-                            Button(action: {
-                                withAnimation {
-                                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                                    menu.toggle()
-                                }
-                            }) {
-                                Image(systemName: "list.bullet")
-                                    .resizable()
-                                    .frame(width: 25, height: 20)
-                            }
-                        
-                            Spacer()
+                        if (appModel.isLoading) {
+                            Text("로딩중")
+                        } else {
+                            ZStack {
+                                Text(appModel.selectedCateogry)
+                                    .font(.title2)
                             
-                            Text(appModel.selectedCateogry)
-                                .font(.title2)
-                            
-                            Spacer()
-                        
-                            Button(action: {
-                                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                                add = true
-                            }) {
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                            }
-                        }
-                        .padding(.top, 60)
-                        .padding([.horizontal, .bottom], 30)
-                        
-                        // MARK: 리스트
-                        List {
-                            ForEach(appModel.productList, id: \._id) { product in
-                                if #available(iOS 15.0, *) {
-                                    Card(product)
-                                        .swipeActions(edge: .trailing) {
-                                            Button(action: {
-                                                handleRemoveProduct(product)
-                                            }) {
-                                                Text("삭제")
-                                            }
-                                            .tint(.red)
-
-                                            Button(action: {
-                                                selectedProduct = product
-                                                edit = true
-                                                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                                            }) {
-                                                Text("수정")
-                                            }
-                                            .tint(.yellow)
+                                // MARK: 상단 메뉴
+                                HStack {
+                                    Button(action: {
+                                        withAnimation {
+                                            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                                            menu.toggle()
                                         }
+                                    }) {
+                                        Image(systemName: "list.bullet")
+                                            .resizable()
+                                            .frame(width: 25, height: 20)
+                                    }
+                            
+                                    Spacer()
+                            
+                                    Button(action: {
+                                        isHelp = true
+                                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                                    }) {
+                                        Image(systemName: "questionmark.square")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                    }
+                                    .padding(.trailing)
+                            
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                                        add = true
+                                    }) {
+                                        Image(systemName: "plus")
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                    }
                                 }
                             }
+                            .padding(.top, 60)
+                            .padding([.horizontal, .bottom], 30)
+                            
+                            // MARK: 리스트
+                            List {
+                                ForEach(appModel.productList, id: \._id) { product in
+                                    if #available(iOS 15.0, *) {
+                                        Card(product)
+                                            .swipeActions(edge: .trailing) {
+                                                Button(action: {
+                                                    handleRemoveProduct(product)
+                                                }) {
+                                                    Text("삭제")
+                                                }
+                                                .tint(.red)
+                            
+                                                Button(action: {
+                                                    selectedProduct = product
+                                                    edit = true
+                                                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                                                }) {
+                                                    Text("수정")
+                                                }
+                                                .tint(.yellow)
+                                            }
+                                    }
+                                }
+                            }
+                            .listStyle(.inset)
                         }
-                        .listStyle(.inset)
                     }
                     .foregroundColor(.black)
                 )
@@ -100,13 +118,15 @@ struct ListView: View {
                 .offset(x: menu ? 200 : 0)
                 .foregroundColor(.white).ignoresSafeArea()
                 .onAppear(perform: fetchProduct)
+                .fullScreenCover(isPresented: $isHelp) {
+                    HelpScreen(isHelp: $isHelp)
+                }
             
             NavigationLink(destination: Add(), isActive: $add) { EmptyView() }
             
-            if (edit) {
-                NavigationLink(destination: Edit(product: selectedProduct!), isActive: $edit) { EmptyView() }
-            }
+            NavigationLink(destination: Edit(product: selectedProduct ?? nil), isActive: $edit) { EmptyView() }
         }
+        .onAppear { animate = true }
     }
     
     func fetchProduct() {
@@ -137,29 +157,8 @@ struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ListView(menu: .constant(false))
+                .environmentObject(AppModel())
         }
-        .environmentObject(AppModel())
-        .preferredColorScheme(.light)
     }
 }
 
-
-//HStack {
-//    Button(action: {
-//        withAnimation {
-//            menu.toggle()
-//        }
-//    }) {
-//        Image(systemName: "list.bullet")
-//            .resizable()
-//            .frame(width: 25, height: 20)
-//    }
-//
-//    Spacer()
-//
-//    Button(action: {}) {
-//        Image(systemName: "plus")
-//            .resizable()
-//            .frame(width: 20, height: 20)
-//    }
-//}

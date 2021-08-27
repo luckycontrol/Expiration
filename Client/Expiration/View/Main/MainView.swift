@@ -9,38 +9,51 @@ import SwiftUI
 
 struct MainView: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        entity: LoginState.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \LoginState.id, ascending: true)
-        ],
-        animation: .default
-    )
-    
-    private var loginState: FetchedResults<LoginState>
-    
     @EnvironmentObject var appModel: AppModel
     
     @State private var menu = false
     
-    // 카테고리
+    // 카테고리 추가
     @State private var isAppendCategory: Bool = false
     @State private var categoryName: String = ""
     @State private var appendResult: Bool = false
     @State private var appendResultMsg: String = ""
     
+    // 카테고리 삭제
+    @State private var isRemoveCategory: Bool = false
+    @State private var selectedRemoveCategory: String = ""
+    
     // 로그아웃
     @State private var isLogout: Bool = false
+    
+    // 알림 설정
+    @State private var isSetting: Bool = false
+    @State private var selectedAlert: String = ""
     
     
     var body: some View {
         NavigationView {
             ZStack {
-                Menu(menu: $menu, isAppendCategory: $isAppendCategory, isLogout: $isLogout)
+                Menu(
+                    menu: $menu,
+                    isAppendCategory: $isAppendCategory,
+                    isRemoveCategory: $isRemoveCategory,
+                    selectedRemoveCategory: $selectedRemoveCategory,
+                    isSetting: $isSetting,
+                    isLogout: $isLogout
+                )
+                .alert(isPresented: $isRemoveCategory) {
+                    Alert(
+                        title: Text("카테고리 삭제"),
+                        message: Text("\(selectedRemoveCategory)을/를 삭제하시겠습니까?"),
+                        primaryButton: .default(Text("삭제"), action: handleRemoveCategory),
+                        secondaryButton: .default(Text("취소"))
+                    )
+                }
                 
                 ListView(menu: $menu)
+                
+                NavigationLink(destination: Setting(), isActive: $isSetting) { EmptyView() }
                 
                 // - - - - - - - 모달 - - - - - -
                 
@@ -127,23 +140,37 @@ struct MainView: View {
         }
     }
     
+    // MARK: 카테고리 삭제 함수
+    func handleRemoveCategory() {
+        CategoryApi().removeCategory(appModel.email, selectedRemoveCategory) { status in
+            ProductApi().removeProductList(appModel.email, selectedRemoveCategory) { status in
+                DispatchQueue.main.async {
+                    appModel.categoryList = appModel.categoryList.filter { category in category != selectedRemoveCategory }
+                    appModel.selectedCateogry = appModel.categoryList[0]
+                    
+                    ProductApi().getProductList(appModel.email, appModel.selectedCateogry) { productList in
+                        DispatchQueue.main.async {
+                            appModel.productList = productList
+                            UINotificationFeedbackGenerator().notificationOccurred(.success)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: 로그아웃
     func handleLogout() {
-        viewContext.delete(loginState[0])
+        UserDefaults.standard.removeObject(forKey: "email")
+        UserDefaults.standard.removeObject(forKey: "name")
         
-        do {
-            try viewContext.save()
-            
-            DispatchQueue.main.async {
-                appModel.email = ""
-                appModel.name = ""
-                appModel.isLogin = false
-            }
-            
-            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        } catch {
-            print(error.localizedDescription)
+        DispatchQueue.main.async {
+            appModel.email = ""
+            appModel.name = ""
+            appModel.isLogin = false
         }
+        
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 }
 

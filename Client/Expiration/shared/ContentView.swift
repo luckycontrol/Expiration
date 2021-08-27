@@ -12,14 +12,43 @@ struct ContentView: View {
     
     @StateObject var appModel = AppModel()
     
+    @State private var isLoading = false
+    
     init() {
         UINavigationBar.appearance().tintColor = .black
     }
 
     var body: some View {
         Group {
-            if appModel.isLogin { MainView() }
-            else { Login() }
+            if isLoading {
+                LoadingView()
+            } else {
+                if appModel.isLogin {
+                    MainView()
+                } else {
+                    Login()
+                }
+            }
+        }
+        .onAppear {
+            if let email = UserDefaults.standard.string(forKey: "email"), let name = UserDefaults.standard.string(forKey: "name") {
+                isLoading = true
+
+                appModel.email = email
+                appModel.name = name
+                
+                CategoryApi().getCategoryList(email) { categoryList in
+                    appModel.categoryList = categoryList
+                    appModel.selectedCateogry = categoryList[0]
+                    
+                    DispatchQueue.main.async {
+                        isLoading = false
+                        appModel.isLogin = true
+                    }
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    
+                }
+            }
         }
         .environmentObject(appModel)
     }

@@ -9,7 +9,7 @@ import Foundation
 
 class AccountApi {
     
-    let url = "http://192.168.1.3:3000/"
+    let url = "https://expiration-server.herokuapp.com/"
     
     // MARK: 멤버 생성
     func createAccount(_ email: String, _ name: String, _ password: String, completion: @escaping (Bool) -> ()) {

@@ -60,14 +60,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         completionHandler(UIBackgroundFetchResult.newData)
     }
+    
+    
 }
-
 
 extension AppDelegate:  MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         let deviceToken: [String: String] = ["token": fcmToken ?? ""]
         
-        print("Device token: ", deviceToken)
+        print(deviceToken)
+        
+        UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
     }
 }
 

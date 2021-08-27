@@ -8,7 +8,7 @@
 import Foundation
 
 class CategoryApi {
-    let url = "http://192.168.1.3:3000/"
+    let url = "https://expiration-server.herokuapp.com/"
     
     // MARK: 카테고리 리스트 가져오기
     func getCategoryList(_ email: String, completion: @escaping ([String]) -> ()) {

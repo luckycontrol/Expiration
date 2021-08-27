@@ -14,7 +14,7 @@ struct Edit: View {
 
     @EnvironmentObject var appModel: AppModel
     
-    let product: ProductStructure
+    let product: ProductStructure?
 
     @State private var name = ""
     @State private var expiration = Date()
@@ -83,7 +83,7 @@ struct Edit: View {
                         .overlay(
                             ZStack(alignment: .center) {
                                 VStack {
-                                    Image(systemName: "photo.fill")
+                                    Image(systemName: "photo")
                                         .resizable()
                                         .frame(width: 50, height: 50)
                                         .scaledToFit()
@@ -140,6 +140,7 @@ struct Edit: View {
                 }
             }
             .navigationBarTitle("\(appModel.selectedCateogry) 수정")
+            .navigationBarTitleDisplayMode(.inline)
             .padding(30)
             .sheet(isPresented: $openImagePicker) {
                 Camera(sourceType: sourceType, selectedImage: $image)
@@ -147,9 +148,9 @@ struct Edit: View {
             .alert(isPresented: $addAlert) { insertAlert }
         }
         .onAppear {
-            name = product.name
-            expiration = dateFormatter.date(from: product.expiration)!
-            image = product.image == "" ? nil : loadImageInDocument(product.image)
+            name = product!.name
+            expiration = dateFormatter.date(from: product!.expiration)!
+            image = product!.image == "" ? nil : loadImageInDocument(product!.image)
         }
     }
     
@@ -171,11 +172,11 @@ struct Edit: View {
     }
     
     func handleUpdateProduct() {
-        updateImageInDocument(product.image, image!)
+        updateImageInDocument(product!.image, image!)
         
         let expiration = dateFormatter.string(from: self.expiration)
         
-        let object = RequestUpdateProduct(email: appModel.email, _id: product._id, name: name, type: appModel.selectedCateogry, expiration: expiration)
+        let object = RequestUpdateProduct(email: appModel.email, _id: product!._id, name: name, type: appModel.selectedCateogry, expiration: expiration)
         
         ProductApi().updateProduct(object) { status in
             if (status) {
