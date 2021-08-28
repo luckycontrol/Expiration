@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import UserNotifications
+import BackgroundTasks
 
 @main
 struct ExpirationApp: App {
@@ -47,7 +48,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         
         application.registerForRemoteNotifications()
+        
+        registerBackgroundTask()
+        
         return true
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        scheduleCheckProduct()
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -60,8 +68,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         completionHandler(UIBackgroundFetchResult.newData)
     }
-    
-    
 }
 
 extension AppDelegate:  MessagingDelegate {
@@ -107,5 +113,72 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print(userInfo)
         
         completionHandler()
+    }
+}
+
+extension AppDelegate {
+    
+    private func registerBackgroundTask() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "request.fcm", using: nil) { task in
+            self.handleCheckProduct(task: task as! BGProcessingTask)
+        }
+    }
+    
+    func scheduleCheckProduct() {
+        let request = BGAppRefreshTaskRequest(identifier: "request.fcm")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 1 * 60)
+        
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("스케쥴링 실패")
+        }
+    }
+    
+    func handleCheckProduct(task: BGProcessingTask) {
+        scheduleCheckProduct()
+        
+        task.expirationHandler = {
+            
+        }
+        
+        task.setTaskCompleted(success: true)
+    }
+    
+    func registerLocalNotification() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        
+        notificationCenter.requestAuthorization(options: options) { didAllow, error in
+            if !didAllow {
+                print("User has declined notifications")
+            }
+        }
+    }
+    
+    func scheduleLocalNotification() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getNotificationSettings { settings in
+            if settings.authorizationStatus == .authorized {
+                self.fireNotification()
+            }
+        }
+    }
+    
+    func fireNotification() {
+        let notificationContent = UNMutableNotificationContent()
+        
+        notificationContent.title = "Bg"
+        notificationContent.body = "BG Notification"
+        
+        let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        
+        let notificationRequest = UNNotificationRequest(identifier: "local_notification", content: notificationContent, trigger: notificationTrigger)
+        
+        UNUserNotificationCenter.current().add(notificationRequest) { error in
+            if let error = error {
+                print("Unable to add notification request")
+            }
+        }
     }
 }

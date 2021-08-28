@@ -31,7 +31,6 @@ struct AlarmSetting: View {
             Spacer()
             
             Button(action: {
-//                requestFCM()
                 setAlarm()
             }) {
                 Text("알람 설정")
@@ -49,7 +48,12 @@ struct AlarmSetting: View {
 
     
     func setAlarm() {
+        let email = appModel.email
+        let token = UserDefaults.standard.string(forKey: "fcmToken")!
         
+        FCMApi().requestFCM(email, token) { status in
+            
+        }
     }
 }
 

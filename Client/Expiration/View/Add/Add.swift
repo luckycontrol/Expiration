@@ -82,7 +82,7 @@ struct Add: View {
                                         .frame(width: 50, height: 50)
                                         .scaledToFit()
                                     
-                                    Text("\(appModel.selectedCateogry) 이미지를 넣어주세요.")
+                                    Text("\(appModel.selectedCategory) 이미지를 넣어주세요.")
                                         .fontWeight(.medium)
                                         .padding(.top, 8)
                                 }
@@ -124,7 +124,7 @@ struct Add: View {
                         add()
                     }
                 }) {
-                    Text("\(appModel.selectedCateogry) 추가")
+                    Text("\(appModel.selectedCategory) 추가")
                         .foregroundColor(.white)
                         .fontWeight(.semibold)
                         .frame(height: 50)
@@ -134,7 +134,7 @@ struct Add: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle("\(appModel.selectedCateogry) 추가")
+            .navigationBarTitle("\(appModel.selectedCategory) 추가")
             .padding(30)
             .sheet(isPresented: $openImagePicker) {
                 Camera(sourceType: sourceType, selectedImage: $image)
@@ -183,7 +183,7 @@ struct Add: View {
     
     // 바디에 넣을 오브젝트 생성
     func createProductObject(_ encodedImage: String, _ expiration: String) -> RequestCreateProduct {
-        let object = RequestCreateProduct(email: appModel.email, productName: name, category: appModel.selectedCateogry, image: encodedImage, expiration: expiration)
+        let object = RequestCreateProduct(email: appModel.email, productName: name, category: appModel.selectedCategory, image: encodedImage, expiration: expiration)
         
         return object
     }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6619DD2426DA08580019C8D2 /* ChangePasswordSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6619DD2326DA08580019C8D2 /* ChangePasswordSetting.swift */; };
+		6619DD2626DA086F0019C8D2 /* DeleteAccountSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6619DD2526DA086F0019C8D2 /* DeleteAccountSetting.swift */; };
 		6629435626D09AAE00E3D1E2 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629435526D09AAE00E3D1E2 /* Setting.swift */; };
 		6629435826D0A03F00E3D1E2 /* AlarmSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629435726D0A03F00E3D1E2 /* AlarmSetting.swift */; };
 		66297814264CCC04007E4B17 /* Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66297813264CCC04007E4B17 /* Add.swift */; };
@@ -34,7 +36,7 @@
 		6681D5AA26C80AA7009F77C6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6681D5A926C80AA7009F77C6 /* Persistence.swift */; };
 		6681D5AD26C87DA6009F77C6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6681D5AC26C87DA6009F77C6 /* FirebaseAnalytics */; };
 		6681D5AF26C87DA6009F77C6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6681D5AE26C87DA6009F77C6 /* FirebaseMessaging */; };
-		669DDCEA26D84C4A002E8810 /* TestView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DDCE926D84C4A002E8810 /* TestView.swift.swift */; };
+		669DDCEE26D8B3C0002E8810 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 669DDCED26D8B3C0002E8810 /* Launch Screen.storyboard */; };
 		66A7209826C7199600CEA40B /* Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A7209726C7199600CEA40B /* Edit.swift */; };
 		66B7FD01268D1CE60057B39C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B7FD00268D1CE60057B39C /* Login.swift */; };
 		66B7FD03268D1CF70057B39C /* CreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B7FD02268D1CF70057B39C /* CreateAccount.swift */; };
@@ -69,6 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6619DD2326DA08580019C8D2 /* ChangePasswordSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordSetting.swift; sourceTree = "<group>"; };
+		6619DD2526DA086F0019C8D2 /* DeleteAccountSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountSetting.swift; sourceTree = "<group>"; };
 		6629435526D09AAE00E3D1E2 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		6629435726D0A03F00E3D1E2 /* AlarmSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSetting.swift; sourceTree = "<group>"; };
 		66297813264CCC04007E4B17 /* Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add.swift; sourceTree = "<group>"; };
@@ -101,7 +105,7 @@
 		6676CC5A264B7C6E00AA4B38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6681D5A726C80A3D009F77C6 /* Expiration.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Expiration.xcdatamodel; sourceTree = "<group>"; };
 		6681D5A926C80AA7009F77C6 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		669DDCE926D84C4A002E8810 /* TestView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift.swift; sourceTree = "<group>"; };
+		669DDCED26D8B3C0002E8810 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		66A7209726C7199600CEA40B /* Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit.swift; sourceTree = "<group>"; };
 		66B7FD00268D1CE60057B39C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		66B7FD02268D1CF70057B39C /* CreateAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccount.swift; sourceTree = "<group>"; };
@@ -151,6 +155,8 @@
 				6629435526D09AAE00E3D1E2 /* Setting.swift */,
 				6629435726D0A03F00E3D1E2 /* AlarmSetting.swift */,
 				66F124BA26D2321C00B924D4 /* UserRequest.swift */,
+				6619DD2326DA08580019C8D2 /* ChangePasswordSetting.swift */,
+				6619DD2526DA086F0019C8D2 /* DeleteAccountSetting.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -282,7 +288,7 @@
 				6676CC3C264B7C6E00AA4B38 /* Preview Content */,
 				6681D5A626C80A3D009F77C6 /* Expiration.xcdatamodeld */,
 				662D6F6026CC594600BE492B /* GoogleService-Info.plist */,
-				669DDCE926D84C4A002E8810 /* TestView.swift.swift */,
+				669DDCED26D8B3C0002E8810 /* Launch Screen.storyboard */,
 			);
 			path = Expiration;
 			sourceTree = "<group>";
@@ -471,6 +477,7 @@
 			files = (
 				6676CC3E264B7C6E00AA4B38 /* Preview Assets.xcassets in Resources */,
 				6676CC3B264B7C6E00AA4B38 /* Assets.xcassets in Resources */,
+				669DDCEE26D8B3C0002E8810 /* Launch Screen.storyboard in Resources */,
 				662D6F6126CC594600BE492B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,7 +505,6 @@
 			files = (
 				666A704926D1FC0900853E1E /* HelpScreen.swift in Sources */,
 				66297817264CEF94007E4B17 /* Camera.swift in Sources */,
-				669DDCEA26D84C4A002E8810 /* TestView.swift.swift in Sources */,
 				6660FA3A26C8B4E100128FBF /* MainView.swift in Sources */,
 				66C7A888264B7DC600ED7C68 /* AppModel.swift in Sources */,
 				66F8CE1626C56DBC00B88E43 /* Category.swift in Sources */,
@@ -528,9 +534,11 @@
 				66756210264BDEEC00EF0CE8 /* Menu.swift in Sources */,
 				666A705326D1FF7D00853E1E /* PleaseLetMeKnow.swift in Sources */,
 				66C7A88E264BCBD900ED7C68 /* Card.swift in Sources */,
+				6619DD2626DA086F0019C8D2 /* DeleteAccountSetting.swift in Sources */,
 				66C7A890264BCCC100ED7C68 /* Product.swift in Sources */,
 				666A704F26D1FF5700853E1E /* HowToAddCategory.swift in Sources */,
 				666A704D26D1FF4E00853E1E /* HowToAddProduct.swift in Sources */,
+				6619DD2426DA08580019C8D2 /* ChangePasswordSetting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,7 +626,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -674,7 +682,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

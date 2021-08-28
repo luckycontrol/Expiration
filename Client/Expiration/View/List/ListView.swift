@@ -42,7 +42,7 @@ struct ListView: View {
                             Text("로딩중")
                         } else {
                             ZStack {
-                                Text(appModel.selectedCateogry)
+                                Text(appModel.selectedCategory)
                                     .font(.title2)
                             
                                 // MARK: 상단 메뉴
@@ -117,7 +117,6 @@ struct ListView: View {
                 .scaleEffect(menu ? 0.8 : 1)
                 .offset(x: menu ? 200 : 0)
                 .foregroundColor(.white).ignoresSafeArea()
-                .onAppear(perform: fetchProduct)
                 .fullScreenCover(isPresented: $isHelp) {
                     HelpScreen(isHelp: $isHelp)
                 }
@@ -126,17 +125,16 @@ struct ListView: View {
             
             NavigationLink(destination: Edit(product: selectedProduct ?? nil), isActive: $edit) { EmptyView() }
         }
-        .onAppear { animate = true }
+        .onAppear(perform: fetchProduct)
     }
     
     func fetchProduct() {
-        isLoading = true
+        let email = appModel.email
+        let categoryName = appModel.selectedCategory
         
-        ProductApi().getProductList(appModel.email, appModel.selectedCateogry) { productList in
+        ProductApi().getProductList(email, categoryName) { productList in
             DispatchQueue.main.async {
                 appModel.productList = productList
-                
-                isLoading = false
             }
         }
     }

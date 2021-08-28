@@ -8,9 +8,9 @@
 import Foundation
 
 final class FCMApi {
-    let url = "http://192.168.1.3:3000"
+    let url = "https://expiration-server.herokuapp.com"
     
-    @objc func requestFCM(_ email: String,  _ token: String, completion: @escaping (Bool) -> ()) {
+    func requestFCM(_ email: String,  _ token: String, completion: @escaping (Bool) -> ()) {
         let object = RequestFCM(token: token, email: email)
         let request = makeRequestObject(object, url + "/requestFCM")
         

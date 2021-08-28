@@ -18,11 +18,11 @@ struct Setting: View {
             }
             
             Section(header: Text("계정 설정")) {
-                NavigationLink(destination: Text("HELLO")) {
+                NavigationLink(destination: ChangePasswordSetting()) {
                     Text("비밀번호 변경")
                 }
                 
-                NavigationLink(destination: Text("HELLO")) {
+                NavigationLink(destination: DeleteAccountSetting()) {
                     Text("계정 삭제")
                 }
             }
@@ -33,6 +33,7 @@ struct Setting: View {
                 }
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("설정")
     }
 }

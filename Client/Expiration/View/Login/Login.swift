@@ -105,7 +105,7 @@ struct Login: View {
                         appModel.email = email
                         appModel.name = name
                         appModel.categoryList = categoryList
-                        appModel.selectedCateogry = categoryList[0]
+                        appModel.selectedCategory = categoryList[0]
                         appModel.isLogin = true
                         generator.notificationOccurred(.success)
                         

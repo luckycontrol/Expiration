@@ -146,9 +146,9 @@ struct MainView: View {
             ProductApi().removeProductList(appModel.email, selectedRemoveCategory) { status in
                 DispatchQueue.main.async {
                     appModel.categoryList = appModel.categoryList.filter { category in category != selectedRemoveCategory }
-                    appModel.selectedCateogry = appModel.categoryList[0]
+                    appModel.selectedCategory = appModel.categoryList[0]
                     
-                    ProductApi().getProductList(appModel.email, appModel.selectedCateogry) { productList in
+                    ProductApi().getProductList(appModel.email, appModel.selectedCategory) { productList in
                         DispatchQueue.main.async {
                             appModel.productList = productList
                             UINotificationFeedbackGenerator().notificationOccurred(.success)

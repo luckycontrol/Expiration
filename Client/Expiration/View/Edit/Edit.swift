@@ -88,7 +88,7 @@ struct Edit: View {
                                         .frame(width: 50, height: 50)
                                         .scaledToFit()
                                     
-                                    Text("\(appModel.selectedCateogry) 이미지를 넣어주세요.")
+                                    Text("\(appModel.selectedCategory) 이미지를 넣어주세요.")
                                         .fontWeight(.medium)
                                         .padding(.top, 8)
                                 }
@@ -130,7 +130,7 @@ struct Edit: View {
                         handleUpdateProduct()
                     }
                 }) {
-                    Text("\(appModel.selectedCateogry) 수정")
+                    Text("\(appModel.selectedCategory) 수정")
                         .foregroundColor(.white)
                         .fontWeight(.semibold)
                         .frame(height: 50)
@@ -139,7 +139,7 @@ struct Edit: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
             }
-            .navigationBarTitle("\(appModel.selectedCateogry) 수정")
+            .navigationBarTitle("\(appModel.selectedCategory) 수정")
             .navigationBarTitleDisplayMode(.inline)
             .padding(30)
             .sheet(isPresented: $openImagePicker) {
@@ -176,7 +176,7 @@ struct Edit: View {
         
         let expiration = dateFormatter.string(from: self.expiration)
         
-        let object = RequestUpdateProduct(email: appModel.email, _id: product!._id, name: name, type: appModel.selectedCateogry, expiration: expiration)
+        let object = RequestUpdateProduct(email: appModel.email, _id: product!._id, name: name, type: appModel.selectedCategory, expiration: expiration)
         
         ProductApi().updateProduct(object) { status in
             if (status) {

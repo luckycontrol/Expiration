@@ -33,20 +33,18 @@ struct ContentView: View {
         .onAppear {
             if let email = UserDefaults.standard.string(forKey: "email"), let name = UserDefaults.standard.string(forKey: "name") {
                 isLoading = true
-
                 appModel.email = email
                 appModel.name = name
                 
                 CategoryApi().getCategoryList(email) { categoryList in
-                    appModel.categoryList = categoryList
-                    appModel.selectedCateogry = categoryList[0]
-                    
                     DispatchQueue.main.async {
+                        appModel.categoryList = categoryList
+                        appModel.selectedCategory = categoryList[0]
+                        
                         isLoading = false
                         appModel.isLogin = true
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
                     }
-                    UINotificationFeedbackGenerator().notificationOccurred(.success)
-                    
                 }
             }
         }

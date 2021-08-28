@@ -102,7 +102,7 @@ struct Menu: View {
                                     Button(action: {
                                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                         appModel.isLoading = true
-                                        appModel.selectedCateogry = category
+                                        appModel.selectedCategory = category
                                         handleSelectCategoryAndChangeProductList(category)
                                     }) {
                                         HStack {
@@ -124,7 +124,7 @@ struct Menu: View {
                                         }
                                         .padding()
                                         .frame(width: 150, height: 40)
-                                        .background(appModel.selectedCateogry == category ? Color.black.opacity(0.4) : nil)
+                                        .background(appModel.selectedCategory == category ? Color.black.opacity(0.4) : nil)
                                         .cornerRadius(10)
                                     }
                                 }
